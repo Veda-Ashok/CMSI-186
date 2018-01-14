@@ -1,1 +1,13 @@
+/*
+* This is a program that prints the sentence "Hello World!" when it is run.
+*
+* @Author Veda Ashok
+* @date 14 January 2018
+*/
 
+public class Hello{
+  	public static void main(String [] args){
+    	  System.out.println("Hello World!");
+      
+	}
+}
