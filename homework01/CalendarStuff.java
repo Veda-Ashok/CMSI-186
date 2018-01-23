@@ -95,7 +95,7 @@ public class CalendarStuff {
    */
    public static long daysInMonth( long month, long year ) { 
 
-     if (month == JANUARY || month == MARCH || month == MAY || month == JULY|| month == AUGUST || month == OCTOBER || month == DECEMBER){
+     if (month == JANUARY || month == MARCH || month == MAY || month == JULY || month == AUGUST || month == OCTOBER || month == DECEMBER){
       
       return 31;
 
@@ -111,6 +111,8 @@ public class CalendarStuff {
         return isLeapYear(year) ? 29 : 28;
 
      }
+     return 33;
+   }
 
 
    /* if (month == 2 && isLeapYear(year)){
@@ -122,10 +124,10 @@ public class CalendarStuff {
        month = 1;       //When does month increment?
        days.parseInt;
        return days[month];  */
-      }
+      
 
      
-   }
+   
 
   /**
    * A method to determine if two dates are exactly equal
@@ -226,14 +228,14 @@ public class CalendarStuff {
       }
 
       else if (month == JANUARY && day > 31){   
-         System.out.println();
+            System.out.println();
             System.out.println ("This is not a valid date.");
             System.out.println();
             return false;
        }
     
       else if ((month == FEBRUARY) && isLeapYear(year)!= true &&  day > 28){        
-          System.out.println();
+            System.out.println();
             System.out.println ("This is not a valid date.");
             System.out.println();
             return false;
@@ -315,7 +317,7 @@ public class CalendarStuff {
 
       }   
 
-      return false; 
+        
   }
 
 
@@ -326,6 +328,7 @@ public class CalendarStuff {
    */
    public static String toMonthString( int month ) {
       switch( month - 1 ) {
+
          default: throw new IllegalArgumentException( "Illegal month value given to 'toMonthString()'." );
       }
    }
@@ -354,8 +357,8 @@ public class CalendarStuff {
    public static long daysBetween( long month1, long day1, long year1, long month2, long day2, long year2 ) {
       long dayCount = 0;
 
-      if (year1 > year2){
-       daycount = ((year1 - year2) * 365) + ();
+      /*if (year1 > year2){
+       daycount = ((year1 - year2) * 365);
 
       }
       else if (year2 > year1){
@@ -364,10 +367,15 @@ public class CalendarStuff {
       if(year1 == year2){
 
       }
+*/
 
 
-
-      return dayCount;
+      return 0;
    }
 
-}
+ }
+
+
+  
+
+
