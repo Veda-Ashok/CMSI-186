@@ -40,7 +40,7 @@ public class CalendarStuff {
   /**
    * A listing of the months of the year, assigning numbers; I suppose these could be ENUMs instead, but whatever
    */
-   private static final int JANUARY    = 0;
+   private static final int JANUARY    = 1;
    private static final int FEBRUARY   = JANUARY   + 1;
    private static final int MARCH  = FEBRUARY + 1;
    private static final int APRIL  = MARCH + 1;
@@ -100,18 +100,18 @@ public class CalendarStuff {
       return 31;
 
      } 
-     else if (month == APRIL|| month == JUNE || month == SEPTEMBER || month == NOVEMBER) {
+     if (month == APRIL|| month == JUNE || month == SEPTEMBER || month == NOVEMBER) {
 
       return 30;
 
      }
       
-     else if (month == FEBRUARY) {
+     if (month == FEBRUARY) {
 
         return isLeapYear(year) ? 29 : 28;
 
      }
-     return 33;
+      return 33;
    }
 
 
@@ -206,9 +206,9 @@ public class CalendarStuff {
    */
       public static boolean isValidDate( long month, long day, long year ) {
       
-      if (month > 12 || month < 0){       // check for valid month
+      if (month > 12 || month <= 0){       // check for valid month
          System.out.println();   
-         System.out.println("TThis is not a valid date.");
+         System.out.println("This is not a valid date.");
          System.out.println();   
          return false;
       }
@@ -321,7 +321,7 @@ public class CalendarStuff {
   }
 
 
-  /**
+     /**
    * A method to return a string version of the month name
    * @param    month long   containing month number, starting with "1" for "January"
    * @return         String containing the string value of the month (no spaces)
@@ -344,6 +344,7 @@ public class CalendarStuff {
       }
    }
 
+
   /**
    * A method to return a count of the total number of days between two valid dates
    * @param    month1 long   containing month number, starting with "1" for "January"
@@ -356,6 +357,7 @@ public class CalendarStuff {
    */
    public static long daysBetween( long month1, long day1, long year1, long month2, long day2, long year2 ) {
       long dayCount = 0;
+      int leap = 0;
 
       /*if (year1 > year2){
        daycount = ((year1 - year2) * 365);
@@ -374,6 +376,10 @@ public class CalendarStuff {
    }
 
  }
+
+
+  
+
 
 
   
