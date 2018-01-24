@@ -53,20 +53,8 @@ public class CalendarStuff {
    private static final int NOVEMBER  = OCTOBER + 1;
    private static final int DECEMBER  = NOVEMBER + 1;
    
-  
-  /**
-   * An array containing the number of days in each month
-   *  NOTE: this excludes leap years, so those will be handled as special cases
-   *  NOTE: this is optional, but suggested
-   */
-   private static int[]    days = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
-  /**
-   * The constructor for the class
-   */
-   public CalendarStuff() {
-      System.out.println( "Constructor called..." );  // replace this with the actual code
-   }
+  
 
   /**
    * A method to determine if the year argument is a leap year or not<br />
@@ -113,19 +101,6 @@ public class CalendarStuff {
      }
       return 33;
    }
-
-
-   /* if (month == 2 && isLeapYear(year)){
-       return 29;
-    }         
-                            // Is there a way to put all the months into an array?
-     else{                
-
-       month = 1;       //When does month increment?
-       days.parseInt;
-       return days[month];  */
-      
-
      
    
 
@@ -345,6 +320,9 @@ public class CalendarStuff {
    }
 
 
+   
+
+
   /**
    * A method to return a count of the total number of days between two valid dates
    * @param    month1 long   containing month number, starting with "1" for "January"
@@ -357,20 +335,90 @@ public class CalendarStuff {
    */
    public static long daysBetween( long month1, long day1, long year1, long month2, long day2, long year2 ) {
       long dayCount = 0;
-      int leap = 0;
+      long leap = 0;
+      long d = 0;
+      
+      //compareDate(month1, day1, year1, month2, day2, year2); //if -1...if 0...if 1...
 
-      /*if (year1 > year2){
-       daycount = ((year1 - year2) * 365);
+
+      if (year1 > year2){  // if the first year is later than the second year
+        long y = daysInMonth(month1, year1) - day1;   // y is the number of days counted in the month of the date itself
+        long z = day2;
+  
+
+        for(int x = 1; x <= DECEMBER; x++){ // for counter x is 1 and increments each time as long as it is <= 12
+          while( (month1 + x) != DECEMBER){  // while the incremented month is not december
+               y = y + (daysInMonth(month1 + x, year1));   // count the number of days NOT included in daycoult of that year
+            }
+          while((month2 - x) != JANUARY){     // do the same for the second date
+              z = z  + (daysInMonth(month2 - x, year2));
+           }
 
       }
-      else if (year2 > year1){
-       daycount = (year2 - year1) * 365;
+
+        for(long year = year2; year <= year1; year++){  // counter year starts at year2 and increments until year 1
+          if(isLeapYear(year) == true){
+            leap++;                                // if counted year is a leap year, increment counter leap
+          }
+        }
+
+        if(year1 - year2 > 1){                   // if there is 1 or more years between year 1 and year 2
+
+          d = ((year1-year2) - 1)  * 365;         // count 365 days per year
+
+        }
+
+        dayCount = (365 - y) + (365 - z) + d + leap;   //day count is the sum of 365 minus y and z plus d and plus one day per leap year
+
+        System.out.println("Daycount is: ");
+        return dayCount;
+   
       }
-      if(year1 == year2){
+
+       else if (year2 > year1){
+        long y = daysInMonth(month2, year2) - day2;
+        long z = day1;
+        
+        for(int x = 1; x <= DECEMBER; x++){
+          while( (month2 + x) != DECEMBER){
+               y = y + (daysInMonth(month2 + x, year2));
+            }
+          while((month1 - x) != JANUARY){
+              z = z  + (daysInMonth(month1 - x, year1));
+           }
 
       }
-*/
 
+        for(long year = year1; year <= year2; year++){
+          if(isLeapYear(year) == true){
+            leap++;
+          }
+        }
+
+          if(year2 - year1 > 1){
+
+          d = ((year2-year1) - 1)  * 365;
+
+        }
+
+      dayCount = y + z + d + leap;
+   
+      }
+
+     /* else if(year1 == year2){
+      if(month1 > month2){
+          for(int x = 1; (month1 - x) != month2);
+       }
+
+      }*/
+
+
+
+      
+      
+
+        
+       
 
       return 0;
    }
@@ -378,10 +426,7 @@ public class CalendarStuff {
  }
 
 
-  
-
 
 
   
-
 
