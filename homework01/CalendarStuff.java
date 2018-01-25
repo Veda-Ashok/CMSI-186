@@ -344,50 +344,60 @@ public class CalendarStuff {
       if (year1 > year2){  // if the first year is later than the second year
         long y = daysInMonth(month1, year1) - day1;   // y is the number of days counted in the month of the date itself
         long z = day2;
+        long x = 1;
   
-
-        for(int x = 1; x <= DECEMBER; x++){ // for counter x is 1 and increments each time as long as it is <= 12
-          while( (month1 + x) != DECEMBER){  // while the incremented month is not december
+        
+          while((month1 + x) != DECEMBER){  // while the incremented month is not december
                y = y + (daysInMonth(month1 + x, year1));   // count the number of days NOT included in daycoult of that year
+               x++;
+               System.out.println("In loop 1");
             }
           while((month2 - x) != JANUARY){     // do the same for the second date
               z = z  + (daysInMonth(month2 - x, year2));
+              x++;
+              System.out.println("In loop 2");
            }
 
-      }
+      
 
-        for(long year = year2; year <= year1; year++){  // counter year starts at year2 and increments until year 1
-          if(isLeapYear(year) == true){
-            leap++;                                // if counted year is a leap year, increment counter leap
+           for(long year = year2; year <= year1; year++){  // counter year starts at year2 and increments until year 1
+                if(isLeapYear(year) == true){
+                    leap++;                                // if counted year is a leap year, increment counter leap
+                }
+         }
+
+          if(year1 - year2 > 1){                   // if there is 1 or more years between year 1 and year 2
+
+              d = ((year1-year2) - 1)  * 365;         // count 365 days per year
+
           }
-        }
 
-        if(year1 - year2 > 1){                   // if there is 1 or more years between year 1 and year 2
+              dayCount = (365 - y) + (365 - z) + d + leap;   //day count is the sum of 365 minus y and z plus d and plus one day per leap year
 
-          d = ((year1-year2) - 1)  * 365;         // count 365 days per year
+              System.out.println("Daycount is: ");
 
-        }
-
-        dayCount = (365 - y) + (365 - z) + d + leap;   //day count is the sum of 365 minus y and z plus d and plus one day per leap year
-
-        System.out.println("Daycount is: ");
-        return dayCount;
+             return dayCount;
    
       }
 
-       else if (year2 > year1){
+       else if (year1 < year2){
         long y = daysInMonth(month2, year2) - day2;
         long z = day1;
+        long x = 1;
         
-        for(int x = 1; x <= DECEMBER; x++){
-          while( (month2 + x) != DECEMBER){
-               y = y + (daysInMonth(month2 + x, year2));
-            }
-          while((month1 - x) != JANUARY){
-              z = z  + (daysInMonth(month1 - x, year1));
-           }
 
-      }
+      
+          while( (month2 + x) <= DECEMBER){
+               y = y + (daysInMonth((month2 + x), year2));
+               x++;    
+            }
+            
+              x = 1;
+          while((month1 - x) >= JANUARY){
+              z = z  + (daysInMonth((month1 - x), year1));
+              x++;    
+           }
+          
 
         for(long year = year1; year <= year2; year++){
           if(isLeapYear(year) == true){
@@ -399,29 +409,64 @@ public class CalendarStuff {
 
           d = ((year2-year1) - 1)  * 365;
 
-        }
+          }
 
-      dayCount = y + z + d + leap;
+          else{
+              
+              d=0;
+            }
+
+            dayCount = (365 - y) + (365 - z) + d + leap;
+
+            
+
+      return dayCount;
+    }
    
+
+
+      if(year1 == year2){ // if years are equal
+     
+        if(month1 > month2){     // check which month is later
+          long y = day1;
+          long z = (daysInMonth(month2, year2)) - day2 ;
+
+          for(int x = 1; (month1 - x) != month2; x++){
+              dayCount = y + z + daysInMonth(month1-x, year1); //dayCount equals days in month 1 plus total days in month 2 minus day2 plus days in between
+              return dayCount;
+          }
+        }
+      
+        if(month1 < month2){
+          long y = (daysInMonth(month1, year1)) - day1;
+          long z = day2;
+          System.out.println("I got " + y + " for y and " + z + " for z.");
+          for(int x = 1; (month2 - x) != month1; x++){
+            dayCount = y + z + daysInMonth(month2 - x, year1);
+            return dayCount;
+          }
+        } 
+
+      else if (month1 == month2){
+        if(day1 > day2){
+          dayCount = day1 - day2;
+        }
+        if(day2 > day1){
+          dayCount = day2 - day1;
+        }
+        if(day1 == day2){
+          dayCount = 0;
+        }
+        return dayCount;
       }
 
-     /* else if(year1 == year2){
-      if(month1 > month2){
-          for(int x = 1; (month1 - x) != month2);
+      
+
        }
+       return 0;
 
-      }*/
+      }
 
-
-
-      
-      
-
-        
-       
-
-      return 0;
-   }
 
  }
 
