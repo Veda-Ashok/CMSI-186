@@ -4,7 +4,7 @@
  *  Author        :  <Veda Ashok>
  *  Date          :  <18 January 2018>
  *  Description   :  This program calculates the number of days between two dates. The dates are specified 
- *					 as args[0] through args[5].
+ *		     as args[0] through args[5].
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
