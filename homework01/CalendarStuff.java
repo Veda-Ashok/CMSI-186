@@ -346,15 +346,18 @@ public class CalendarStuff {
                 long x = 1;
           
         
-                        while((month1 + x) != DECEMBER){  // while the incremented month is not December
+                        while((month1 + x) <= DECEMBER){  // while the incremented month is not December
                              y = y + (daysInMonth(month1 + x, year1));   // count the number of days NOT included in daycount of that year
                              x++;
-                             System.out.println("In loop 1");
+                             
+                             
                           }
-                        while((month2 - x) != JANUARY){     // do the same for the second date
+                          x = 1;
+                        while((month2 - x) >= JANUARY){     // do the same for the second date
                             z = z  + (daysInMonth(month2 - x, year2));
                             x++;
-                            System.out.println("In loop 2");
+                            
+                            
                          }
 
                 
@@ -373,7 +376,7 @@ public class CalendarStuff {
 
                             dayCount = (365 - y) + (365 - z) + d + leap;   //day count is the sum of 365 minus y and z plus d and plus one day per leap year
 
-                            System.out.println("Daycount is: ");
+                           
 
                            return dayCount;
                  
@@ -389,12 +392,14 @@ public class CalendarStuff {
                         while( (month2 + x) <= DECEMBER){                //while incremented month is not December
                              y = y + (daysInMonth((month2 + x), year2));
                              x++;    
+                             
                           }
                           
                             x = 1;
                         while((month1 - x) >= JANUARY){                 //while decremented month is not January
                             z = z  + (daysInMonth((month1 - x), year1));
-                            x++;    
+                            x++;  
+                            
                          }
                         
 
