@@ -1,5 +1,5 @@
 /**
- *  File name     :  CalendarStuff.java
+ *  File name     :  CountTheDays.java
  *  Purpose       :  Provides a class with supporting methods for CountTheDays.java program
  *  Author        :  B.J. Johnson (prototype)
  *  Date          :  2017-01-02 (prototype)
