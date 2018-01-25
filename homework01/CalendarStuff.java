@@ -430,21 +430,35 @@ public class CalendarStuff {
         if(month1 > month2){     // check which month is later
           long y = day1;
           long z = (daysInMonth(month2, year2)) - day2 ;
+          int x = 1;
 
-          for(int x = 1; (month1 - x) != month2; x++){
+          for( x = 1; (month1 - x) != month2; x++){
               dayCount = y + z + daysInMonth(month1-x, year1); //dayCount equals days in month 1 plus total days in month 2 minus day2 plus days in between
               return dayCount;
           }
+          
         }
       
         if(month1 < month2){
           long y = (daysInMonth(month1, year1)) - day1;
           long z = day2;
-          System.out.println("I got " + y + " for y and " + z + " for z.");
-          for(int x = 1; (month2 - x) != month1; x++){
+          int x = 1;
+
+          if((month2-x) == month1){
+            dayCount = y + z;
+            return dayCount;
+          }
+
+          else{
+
+          for( x = 1; (month2 - x) != month1; x++){
             dayCount = y + z + daysInMonth(month2 - x, year1);
             return dayCount;
           }
+
+        }
+
+
         } 
 
       else if (month1 == month2){
