@@ -1,8 +1,8 @@
 /** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  *  File name     :  StringStuff.java
  *  Purpose       :  A file full of stuff to do with the Java String class
- *  Author        :  B.J. Johnson
- *  Date          :  2017-01-19
+ *  Author        :  Veda Ashok
+ *  Date          :  2018 February 1
  *  Description   :  This file presents a bunch of String-style helper methods.  Although pretty much
  *                   any and every thing you'd want to do with Strings is already made for you in the
  *                   Jave String class, this exercise gives you a chance to do it yourself [DIY] for some
@@ -73,7 +73,20 @@ public class StringStuff {
    * @return  String containing the &quot;even&quot; letters from the input
    */
    public static String evensOnly( String s ) {
-      return new String( "HJHJHJ" );
+      String evens = "BDFHJLNPRTVXZbdfhjlnprtvxz";
+      String evenLetters = "";
+      for(int x = 0; x < s.length(); x++){
+         for(int y = 0; y < evens.length(); y++){
+            if(s.charAt(x) == evens.charAt(y)){
+                evenLetters += s.charAt(x);
+            }
+
+         }
+         
+      }
+
+      return evenLetters;
+
    }
 
   /**
@@ -85,8 +98,22 @@ public class StringStuff {
    * @return  String containing the &quot;odd&quot; letters from the input
    */
    public static String oddsOnly( String s ) {
-      return new String( "IKIKIK" );
+      String odds = "ACEGIKMOQSUWYacegikmoqsuwy";
+      String oddLetters = "";
+      for(int x = 0; x < s.length(); x++){
+         for(int y = 0; y < odds.length(); y++){
+            if(s.charAt(x) == odds.charAt(y)){
+                oddLetters += s.charAt(x);
+            }
+
+         }
+         
+      }
+
+      return oddLetters;
+
    }
+
 
   /**
    * Method to return the characters in a string that correspond to the &quot;EVEN&quot; index
@@ -96,7 +123,19 @@ public class StringStuff {
    * @return  String containing the &quot;even&quot; letters from the input without duplicates
    */
    public static String evensOnlyNoDupes( String s ) {
-      return new String( "HJ" );
+      String evensNoDupes = "";
+      String r = StringStuff.evensOnly(s);
+
+      for(int x = 0; x < r.length(); x++){
+         String n = "";
+         n += r.charAt(x);                      //create a string to hold the letters of string r that come before the current index 
+
+         if(evensNoDupes.contains(n) == false){  //if my output string does not contain string n, add the character to the output
+            evensNoDupes += r.charAt(x);
+         }
+      }
+   
+      return evensNoDupes;
    }
 
   /**
@@ -107,8 +146,21 @@ public class StringStuff {
    * @return  String containing the &quot;odd&quot; letters from the input without duplicates
    */
    public static String oddsOnlyNoDupes( String s ) {
-      return new String( "IK" );
+      String r = StringStuff.oddsOnly(s);
+      String oddsNoDupes = "";
+      
+      for(int x = 0; x < r.length(); x++){
+         String n = "";                       //create a string to hold the letters of string r that come before the current index
+         n += r.charAt(x);
+
+         if(oddsNoDupes.contains(n) == false){    //if my output string does not contain string n, add the character to the output
+            oddsNoDupes += r.charAt(x);
+         }
+      }
+   
+      return oddsNoDupes;
    }
+
 
   /**
    * Method to return the reverse of a string passed as an argument
