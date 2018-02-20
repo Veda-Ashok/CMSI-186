@@ -46,9 +46,11 @@ public class DiceSet {
    * @note   parameters are checked for validity; invalid values throw "IllegalArgumentException"
    */
    public DiceSet( int count, int sides ) {
+      this.count = count;
+      this.sides = sides;
       ds = new Die[ count ];
       for(int x = 0; x < count; x++){
-        ds[x] = Die(sides);             // creating each die for the given number of dice
+        ds[x] = new Die(sides);             // creating each die for the given number of dice
       }
 
    }
@@ -56,10 +58,13 @@ public class DiceSet {
   /**
    * @return the sum of all the dice values in the set
    */
+
    public int sum() {
+    int s = 0;
     for(int y = 0; y < count; y++){
-      int s += rollingDice[y];          //add values returned by the roll method
+      s += rollingDice[y];          //add values returned by the roll method
     }
+    return s;
    }
 
   /**
@@ -68,12 +73,12 @@ public class DiceSet {
    *  the values of the dice in the set
    */
    public void roll() {
-    for(int m = 0; m < count; m ++){
+    
         for(int i = 0 ; i < count; i++){
-           rollingDice[m] = ds[i].roll();
+           ds[i].roll();
 
     }
-  }
+  
 
    }
 
@@ -85,9 +90,9 @@ public class DiceSet {
    */
    public int rollIndividual( int dieIndex ) {
 
-      ds[dieIndex].roll();
+      return ds[dieIndex].roll();
       
-      return 0;
+      
    }
 
   /**
@@ -97,17 +102,22 @@ public class DiceSet {
    */
    public int getIndividual( int dieIndex ) {
 
-      ds[dieIndex].getValue();
+      return ds[dieIndex].getValue();
     
-      return -999;
+      
    }
 
   /**
    * @return Public Instance method that returns a String representation of the DiceSet instance
    */
    public String toString() {
-    for (int i = 0; i < count; i++){
-      String result = "[" +  ds[i].getValue(); + "]";
+    int n = 0;
+    String result = "";
+    
+    for (int i = 0; i < this.count; i++){
+      
+      n = ds[i].getValue();
+      result = "[" +  n + "]";
     }
     
       return result;
@@ -117,9 +127,9 @@ public class DiceSet {
    * @return Class-wide version of the preceding instance method
    */
    public static String toString( DiceSet ds ) { //for given dice set
-    for(int i = 0; i < count; i++){
-      return ds[i].toString();
-    }
+    
+      return ds.toString();
+    
    }
 
   /**
@@ -132,69 +142,45 @@ public class DiceSet {
    * A little test main to check things out
    */
    public static void main( String[] args ) {
-      DiceSet die = new DieSet(2,6);
-      DiceSet die2 = new DieSet(7,4);
-      DiceSet die3 = new DieSet(10,17);
-      DiceSet die4 = new DieSet(15,4);
+      DiceSet die = new DiceSet(2,6);
+      DiceSet die2 = new DiceSet(7,4);
+      DiceSet die3 = new DiceSet(10,17);
+      DiceSet die4 = new DiceSet(15,4);
 
-      System.out.println( " Test for roll: " );
+      System.out.println( "Test for roll: " );
       System.out.println();
-      System.out.println("Die 1 rolled:" + die.roll()); 
-      System.out.print( " Test for roll: " );
-      System.out.println("Die 2 rolled:" + die2.roll());
-      System.out.print( " Test for roll: " );
-      System.out.println("Die 3 rolled:" + die3.roll()); 
-      System.out.print( " Test for roll: " );
-      System.out.println("Die 4 rolled:" + die4.roll()); 
-      System.out.println();
-
-      System.out.println( " Test for rollIndividual: " );
-      System.out.println();
-      System.out.println("Die 1 rolled:" + die.rollIndividual()); 
-      System.out.print( " Test for roll: " );
-      System.out.println("Die 2 rolled:" + die2.rollIndividual()); 
-      System.out.print( " Test for roll: " );
-      System.out.println("Die 3 rolled:" + die3.rollIndividual()); 
-      System.out.print( " Test for roll: " );
-      System.out.println("Die 4 rolled:" + die4.rollIndividual());  
+      die.roll();
+      System.out.println("Die 1 rolled:" + die.toString()); 
+      die2.roll();
+      System.out.println("Die 2 rolled:" + die2.toString());
+      die3.roll();
+      System.out.println("Die 3 rolled:" + die3.toString()); 
+      die4.roll();
+      System.out.println("Die 4 rolled:" + die4.toString()); 
       System.out.println();
 
-      System.out.println("Test for getValue:");
+      System.out.println( "Test for rollIndividual: " );
       System.out.println();
-      System.out.println(die.getValue());
-      System.out.println(die2.getValue());
-      System.out.println(die3.getValue());
-      System.out.println(die4.getValue());
-      System.out.println();
-
-      System.out.println("Test for toString non-Static:");
-      System.out.println();
-      System.out.println(die.toString());
-      System.out.println(die2.toString());
-      System.out.println(die3.toString());
-      System.out.println(die4.toString());
+      System.out.println("Die 1 rolled:" + die.rollIndividual(1)); 
+      
+      System.out.println("Die 2 rolled:" + die2.rollIndividual(4)); 
+      
+      System.out.println("Die 3 rolled:" + die3.rollIndividual(7)); 
+      
+      System.out.println("Die 4 rolled:" + die4.rollIndividual(12));  
       System.out.println();
 
-      System.out.println("Test for toString static:");
+      System.out.println("Test for getIndividual:");
       System.out.println();
-      System.out.println(Die.toString(die));
-      System.out.println(Die.toString(die2));
-      System.out.println(Die.toString(die3));
-      System.out.println(Die.toString(die4));
+      System.out.println(die.getIndividual(1));
+      System.out.println(die2.getIndividual(4));
+      System.out.println(die3.getIndividual(7));
+      System.out.println(die4.getIndividual(12));
       System.out.println();
+
+    
      
-      System.out.println("Test for setSides:");
-      System.out.println();
-      die.setSides(6);
-      System.out.println("Die 1 now has " + die.sides + " sides.");
-      die2.setSides(9);
-      System.out.println("Die 2 now has " + die2.sides + " sides.");
-      die3.setSides(25);
-      System.out.println("Die 3 now has " + die3.sides + " sides.");
-      die4.setSides(16);
-      System.out.println("Die 4 now has " + die4.sides + " sides.");
-      System.out.println();
+    
    }
 
 }
-
