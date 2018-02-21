@@ -61,9 +61,10 @@ public class DiceSet {
 
    public int sum() {
     int s = 0;
-    for(int y = 0; y < count; y++){
-      s += rollingDice[y];          //add values returned by the roll method
+    for(int y = 0; y < this.count; y++){
+      s += ds[y].getValue();          //add values returned by the roll method
     }
+    System.out.println("Sum is: " + s);
     return s;
    }
 
@@ -90,6 +91,7 @@ public class DiceSet {
    */
    public int rollIndividual( int dieIndex ) {
 
+      System.out.println("Die " + dieIndex + " rolled: " + ds[dieIndex].roll());
       return ds[dieIndex].roll();
       
       
@@ -117,7 +119,7 @@ public class DiceSet {
     for (int i = 0; i < this.count; i++){
       
       n = ds[i].getValue();
-      result = "[" +  n + "]";
+      result += "[" +  n + "]";
     }
     
       return result;
