@@ -218,11 +218,7 @@ public class DiceSet {
       System.out.println(die4.isIdentical(die2));
       System.out.println(die.isIdentical(die));
       System.out.println();
-
-
-
-
-    
+   
      
     
    }
