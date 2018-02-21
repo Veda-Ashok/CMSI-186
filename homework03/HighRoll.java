@@ -114,6 +114,7 @@ public class HighRoll{
             }  
             else if('D' == inputLine.charAt(0)){
             	 highScore = set.sum();
+            	 System.out.println("Saved!");
 
             }  
             else if('E' == inputLine.charAt(0)){
