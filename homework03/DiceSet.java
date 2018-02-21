@@ -64,7 +64,7 @@ public class DiceSet {
     for(int y = 0; y < this.count; y++){
       s += ds[y].getValue();          //add values returned by the roll method
     }
-    System.out.println("Sum is: " + s);
+    
     return s;
    }
 
@@ -78,7 +78,7 @@ public class DiceSet {
         for(int i = 0 ; i < count; i++){
            ds[i].roll();
 
-    }
+        }
   
 
    }
@@ -90,8 +90,9 @@ public class DiceSet {
    * @trhows IllegalArgumentException if the index is out of range
    */
    public int rollIndividual( int dieIndex ) {
-
+      System.out.println();
       System.out.println("Die " + dieIndex + " rolled: " + ds[dieIndex].roll());
+      System.out.println();
       return ds[dieIndex].roll();
       
       
@@ -116,13 +117,13 @@ public class DiceSet {
     int n = 0;
     String result = "";
     
-    for (int i = 0; i < this.count; i++){
+      for (int i = 0; i < this.count; i++){
       
       n = ds[i].getValue();
       result += "[" +  n + "]";
-    }
+      }
     
-      return result;
+       return result;
    }
 
   /**
@@ -138,8 +139,16 @@ public class DiceSet {
    * @return  tru iff this set is identical to the set passed as an argument
    */
    public boolean isIdentical( DiceSet ds ) {
-      return true;
+      if((this.count == ds.count) && (this.sides == ds.sides) && (this.sum() == ds.sum())){
+        return true;
+      }
+      
+        return false;
+
    }
+
+      
+   
   /**
    * A little test main to check things out
    */
@@ -148,9 +157,10 @@ public class DiceSet {
       DiceSet die2 = new DiceSet(7,4);
       DiceSet die3 = new DiceSet(10,17);
       DiceSet die4 = new DiceSet(15,4);
+      DiceSet die5 = new DiceSet(7,4);
+      
 
       System.out.println( "Test for roll: " );
-      System.out.println();
       die.roll();
       System.out.println("Die 1 rolled:" + die.toString()); 
       die2.roll();
@@ -162,23 +172,55 @@ public class DiceSet {
       System.out.println();
 
       System.out.println( "Test for rollIndividual: " );
-      System.out.println();
       System.out.println("Die 1 rolled:" + die.rollIndividual(1)); 
-      
       System.out.println("Die 2 rolled:" + die2.rollIndividual(4)); 
-      
       System.out.println("Die 3 rolled:" + die3.rollIndividual(7)); 
-      
       System.out.println("Die 4 rolled:" + die4.rollIndividual(12));  
       System.out.println();
 
       System.out.println("Test for getIndividual:");
-      System.out.println();
+      
       System.out.println(die.getIndividual(1));
       System.out.println(die2.getIndividual(4));
       System.out.println(die3.getIndividual(7));
       System.out.println(die4.getIndividual(12));
       System.out.println();
+
+      System.out.println("Test for toString non-Static:");
+      
+      System.out.println(die.toString());
+      System.out.println(die2.toString());
+      System.out.println(die3.toString());
+      System.out.println(die4.toString());
+      System.out.println();
+
+      System.out.println("Test for toString static:");
+      
+      System.out.println(DiceSet.toString(die));
+      System.out.println(DiceSet.toString(die2));
+      System.out.println(DiceSet.toString(die3));
+      System.out.println(DiceSet.toString(die4));
+      System.out.println();
+
+
+      System.out.println("Test for sum:");
+      System.out.println(die.sum());
+      System.out.println(die2.sum());
+      System.out.println(die3.sum());
+      System.out.println(die4.sum());
+      System.out.println();
+
+
+      System.out.println("Test for IsIdentical:");
+      System.out.println(die.isIdentical(die2));
+      System.out.println(die3.isIdentical(die4));
+      System.out.println(die2.isIdentical(die5));
+      System.out.println(die4.isIdentical(die2));
+      System.out.println(die.isIdentical(die));
+      System.out.println();
+
+
+
 
     
      
