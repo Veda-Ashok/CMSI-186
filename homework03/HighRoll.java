@@ -19,6 +19,7 @@ public class HighRoll{
       int numSides = 0;
      
          try {
+         	System.out.println();
          	System.out.println("Please enter the number of dice you would like in the set: ");
             BufferedReader nd = new BufferedReader( new InputStreamReader( System.in ));
             String inLine1 = nd.readLine();
@@ -31,6 +32,7 @@ public class HighRoll{
 
                 
             }
+             System.out.println();
              System.out.println("Please enter the number of sides you would like on each die: ");
              BufferedReader ns = new BufferedReader( new InputStreamReader( System.in ));
             String inLine2 = ns.readLine();
@@ -47,7 +49,7 @@ public class HighRoll{
       
   
     
-
+      System.out.println();
       System.out.println("Please select an option from the list below:");
       System.out.println("Option A: ROLL ALL THE DICE");
       System.out.println("Option B: ROLL A SINGLE DIE");
@@ -55,6 +57,7 @@ public class HighRoll{
       System.out.println("Option D: SAVE THIS SCORE AS THE HIGH SCORE");
       System.out.println("Option E: DISPLAY THE HIGH SCORE");
       System.out.println("Option Q: QUIT THE PROGRAM");
+      System.out.println();
       
 
      // This line uses the two classes to assemble an "input stream" for the user to type
@@ -79,26 +82,34 @@ public class HighRoll{
                System.out.println("Pick an option from the options above:");
             }
 
-
+            System.out.println();
             System.out.println( "   You chose option: " + inputLine );
+            
             if( 'Q' == inputLine.charAt(0) ) {
                break;
             }  
             else if('A' == inputLine.charAt(0)){
             	set.roll();
+            	System.out.println();
             	System.out.println("You rolled: " + set.toString());
+            	System.out.println();
 
             } 
             else if('B' == inputLine.charAt(0)){
 
+            	System.out.println();
             	System.out.println("Which Die?: ");
+            	System.out.println();
             	BufferedReader index = new BufferedReader( new InputStreamReader( System.in ) );
             	String inLine3 = index.readLine();
-            	set.rollIndividual(Integer.parseInt(inLine3));
+            	set.rollIndividual(Integer.parseInt(inLine3) - 1);
 
             }  
             else if('C' == inputLine.charAt(0)){
-            	set.sum();
+            	System.out.println();
+    			System.out.println("Sum is: " + set.sum());
+    			System.out.println();
+
 
             }  
             else if('D' == inputLine.charAt(0)){
@@ -106,7 +117,9 @@ public class HighRoll{
 
             }  
             else if('E' == inputLine.charAt(0)){
+            	System.out.println();
             	System.out.println("The High Score is: " + highScore);
+            	System.out.println();
             	
 
             }  
@@ -118,4 +131,3 @@ public class HighRoll{
       }
    }
 }
-
