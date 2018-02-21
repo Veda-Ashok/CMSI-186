@@ -73,7 +73,7 @@ public class Die {
    */
    public int roll() {  //rolls die
           pips = (int)((Math.random() * sides) + 1);
-          System.out.println("Pips equals:" + pips);
+          //System.out.println("Pips equals:" + pips);
           return pips;
    }
 
@@ -233,4 +233,3 @@ public class Die {
    }
 
 }
-
