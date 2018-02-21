@@ -130,11 +130,8 @@ public class Die {
       System.out.println( " Test for roll: " );
       System.out.println();
       System.out.println("Die 1 rolled:" + die.roll()); 
-      System.out.print( " Test for roll: " );
       System.out.println("Die 2 rolled:" + die2.roll());
-      System.out.print( " Test for roll: " );
       System.out.println("Die 3 rolled:" + die3.roll()); 
-      System.out.print( " Test for roll: " );
       System.out.println("Die 4 rolled:" + die4.roll()); 
       System.out.println();
 
@@ -177,16 +174,13 @@ public class Die {
       Die die5 = new Die(5);
       Die die6 = new Die(24);
       Die die7 = new Die(14);
-      Die die8 = new Die(90);
+      Die die8 = new Die(10);
 
       System.out.println( " Test for roll: " );
       System.out.println();
       System.out.println("Die 5 rolled:" + die5.roll()); 
-      System.out.print( " Test for roll: " );
       System.out.println("Die 6 rolled:" + die6.roll());
-      System.out.print( " Test for roll: " );
       System.out.println("Die 7 rolled:" + die7.roll()); 
-      System.out.print( " Test for roll: " );
       System.out.println("Die 8 rolled:" + die8.roll()); 
       System.out.println();
 
