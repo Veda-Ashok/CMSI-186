@@ -108,13 +108,14 @@ public class HighRoll{
             else if('C' == inputLine.charAt(0)){
             	System.out.println();
     	        System.out.println("Sum is: " + set.sum());
-    		System.out.println();
+    		    System.out.println();
 
 
             }  
             else if('D' == inputLine.charAt(0)){
             	 highScore = set.sum();
             	 System.out.println("Saved!");
+            	 System.out.println();
 
             }  
             else if('E' == inputLine.charAt(0)){
