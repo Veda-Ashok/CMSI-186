@@ -107,8 +107,8 @@ public class HighRoll{
             }  
             else if('C' == inputLine.charAt(0)){
             	System.out.println();
-    			System.out.println("Sum is: " + set.sum());
-    			System.out.println();
+    	        System.out.println("Sum is: " + set.sum());
+    		System.out.println();
 
 
             }  
