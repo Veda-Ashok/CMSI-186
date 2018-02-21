@@ -225,9 +225,7 @@ public class Die {
       die4.setSides(16);
       System.out.println("Die 8 now has " + die8.sides + " sides.");
       System.out.println();
-      
-
-      
+       
      
 
    }
