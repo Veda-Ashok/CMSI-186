@@ -1,0 +1,601 @@
+ Test for roll: 
+
+Die 1 rolled:2
+Die 2 rolled:4
+Die 3 rolled:3
+Die 4 rolled:23
+
+Test for getValue:
+
+2
+4
+3
+23
+
+Test for toString non-Static:
+
+[2]
+[4]
+[3]
+[23]
+
+Test for toString static:
+
+[2]
+[4]
+[3]
+[23]
+
+Test for setSides:
+
+Die 1 now has 6 sides.
+Die 2 now has 9 sides.
+Die 3 now has 25 sides.
+Die 4 now has 16 sides.
+
+ Test for roll: 
+
+Die 5 rolled:4
+Die 6 rolled:12
+Die 7 rolled:4
+Die 8 rolled:7
+
+Test for getValue:
+
+4
+12
+4
+7
+
+Test for toString non-Static:
+
+[4]
+[12]
+[4]
+[7]
+
+Test for toString static:
+
+[4]
+[12]
+[4]
+[7]
+
+Test for setSides:
+
+Die 5 now has 5 sides.
+Die 6 now has 24 sides.
+Die 7 now has 14 sides.
+Die 8 now has 10 sides.
+
+Test for roll: 
+Die 1 rolled:[4][3]
+Die 2 rolled:[4][3][3][2][4][1][2]
+Die 3 rolled:[17][4][3][8][2][9][1][15][1][17]
+Die 4 rolled:[2][4][2][2][1][2][3][3][3][2][3][4][2][2][4]
+
+Test for rollIndividual: 
+
+Die 1 rolled: 6
+
+Die 1 rolled:6
+
+Die 4 rolled: 4
+
+Die 2 rolled:1
+
+Die 7 rolled: 1
+
+Die 3 rolled:14
+
+Die 12 rolled: 2
+
+Die 4 rolled:2
+
+Test for getIndividual:
+6
+1
+14
+2
+
+Test for toString non-Static:
+[4][6]
+[4][3][3][2][1][1][2]
+[17][4][3][8][2][9][1][14][1][17]
+[2][4][2][2][1][2][3][3][3][2][3][4][2][2][4]
+
+Test for toString static:
+[4][6]
+[4][3][3][2][1][1][2]
+[17][4][3][8][2][9][1][14][1][17]
+[2][4][2][2][1][2][3][3][3][2][3][4][2][2][4]
+
+Test for sum:
+10
+16
+76
+39
+
+Test for IsIdentical:
+false
+false
+false
+false
+true
+
+TESTING THE DIE CLASS: TEST CONSTRUCTOR FOR INVALID NUMBERS OF SIDES:
+   Too few sides requested to constructor....
+   Too few sides requested to constructor....
+   Too few sides requested to constructor....
+   Too few sides requested to constructor....
+TESTING THE DIE CLASS: TESTS ON 4-SIDED DIE:
+   roll() test for 4 sided die: 
+   You rolled a 4
+   You rolled a 2
+   You rolled a 4
+   You rolled a 4
+   You rolled a 2
+   Current value is: [2]
+TESTING THE DIE CLASS: TESTS ON 5-SIDED DIE:
+   roll() test for 5 sided die: 
+   You rolled a 4
+   You rolled a 4
+   You rolled a 3
+   You rolled a 5
+   You rolled a 2
+   Current value is: [2]
+TESTING THE DIE CLASS: TESTS ON 6-SIDED DIE:
+   roll() test for 6 sided die: 
+   You rolled a 3
+   You rolled a 4
+   You rolled a 3
+   You rolled a 2
+   You rolled a 4
+   Current value is: [4]
+TESTING THE DIE CLASS: TESTS ON 7-SIDED DIE:
+   roll() test for 7 sided die: 
+   You rolled a 3
+   You rolled a 2
+   You rolled a 6
+   You rolled a 6
+   You rolled a 4
+   Current value is: [4]
+TESTING THE DIE CLASS: TESTS ON 8-SIDED DIE:
+   roll() test for 8 sided die: 
+   You rolled a 1
+   You rolled a 8
+   You rolled a 8
+   You rolled a 5
+   You rolled a 2
+   Current value is: [2]
+TESTING THE DIE CLASS: TESTS ON 11-SIDED DIE USING NEW SIDE COUNT:
+   Rolling with new side count -- 
+      You rolled a 2
+      You rolled a 10
+      You rolled a 3
+      You rolled a 5
+      You rolled a 11
+TESTING THE DIE CLASS: TESTS ON 17-SIDED DIE USING NEW SIDE COUNT:
+   Rolling with new side count -- 
+      You rolled a 17
+      current value is: 17
+TESTING THE DIE CLASS: TESTS ON 111-SIDED DIE USING NEW SIDE COUNT:
+   Rolling with new side count -- 
+      You rolled a 51
+      current value is: 51
+......End of Die Class Testing.....
+
+
+TESTING THE DICESET CLASS: TEST CONSTRUCTOR FOR 3 SIX-SIDED DICE:
+  DiceSet: 3 dice, six sided - ds36:
+      initialized ds36 contents             : [1][1][1]
+      after collective roll ds36 contents   : [2][3][3]
+
+Die 2 rolled: 6
+
+      after individual roll(2) ds36 contents: [2][3][3]
+      sum of dice values is: 8
+   Re-rolling all dice
+      after collective roll ds36 contents   : [3][4][1]
+
+Die 2 rolled: 3
+
+      after individual roll(2) ds36 contents: [3][4][6]
+      sum of dice values is                 : 13
+   Test of getIndividual(): 
+      value of die at index 0: 3
+      value of die at index 1: 4
+      value of die at index 2: 6
+TESTING THE DICESET CLASS: TEST CONSTRUCTOR FOR 6 NINE-SIDED DICE:
+   DiceSet: 6 dice, nine sided - ds69:
+      initialized ds36 contents             : [1][1][1][1][1][1]
+      after collective roll ds69 contents   : [6][3][6][3][9][5]
+
+Die 2 rolled: 2
+
+      after individual roll(2) ds69 contents: [6][3][4][3][9][5]
+      sum of dice values is                 : 30
+   Re-rolling all dice
+      after collective roll ds69 contents   : [1][4][9][4][6][3]
+
+Die 3 rolled: 9
+
+      after individual roll(3) ds69 contents: [1][4][9][2][6][3]
+      sum of dice values is                 : 25
+   Test of getIndividual(): 
+      value of die at index 0: 1
+      value of die at index 1: 4
+      value of die at index 2: 9
+      value of die at index 3: 2
+      value of die at index 4: 6
+      value of die at index 5: 3
+TESTING THE DICESET CLASS: TEST CONSTRUCTOR FOR 9 SEVENTEEN-SIDED DICE:
+   DiceSet: 9 dice, 17 sided - ds917:
+      initialized ds36 contents              : [1][1][1][1][1][1][1][1][1]
+      after collective roll ds917 contents   : [3][17][9][12][15][17][14][3][11]
+
+Die 6 rolled: 11
+
+      after individual roll(6) ds917 contents: [3][17][9][12][15][17][7][3][11]
+      sum of dice values is                  : 94
+   Re-rolling all dice
+      after collective roll ds917 contents   : [5][15][1][3][5][6][13][13][14]
+
+Die 8 rolled: 14
+
+      after individual roll(8) ds69 contents : [5][15][1][3][5][6][13][13][7]
+      sum of dice values is                  : 68
+   Test of getIndividual(): 
+      value of die at index 0: 5
+      value of die at index 1: 15
+      value of die at index 2: 1
+      value of die at index 3: 3
+      value of die at index 4: 5
+      value of die at index 5: 6
+      value of die at index 6: 13
+      value of die at index 7: 13
+      value of die at index 8: 7
+TESTING THE DICESET CLASS: TEST 'isIdentical()' FOR 9 SEVENTEEN-SIDED DICE:
+   Test of isIndentical(): 
+      Test of ds917 against ds69   : false
+      Test of ds917 against itself : true
+TESTING THE DICESET CLASS: TEST 'isIdentical()' FOR NEW SET OF 9 SEVENTEEN-SIDED DICE:
+   DiceSet ds917 contents       : [7][6][16][10][16][16][5][4][13]
+      New DiceSet ds2_917 contents : [13][17][13][2][11][7][16][5][6]
+      Test of ds917 against ds2_917: false
+......End of DiceSet Class Testing.....
+
+
+
+Welcome to High Roll!!
+
+
+Please enter the number of dice you would like in the set: 
+
+Please enter the number of sides you would like on each die: 
+
+Please select an option from the list below:
+Option A: ROLL ALL THE DICE
+Option B: ROLL A SINGLE DIE
+Option C: CACULATE THE SCORE FOR THIS SET
+Option D: SAVE THIS SCORE AS THE HIGH SCORE
+Option E: DISPLAY THE HIGH SCORE
+Option Q: QUIT THE PROGRAM
+
+>>
+   You chose option: A
+
+You rolled: [3][2][3][1][6]
+
+>>
+   You chose option: A
+
+You rolled: [4][2][2][1][4]
+
+>>
+   You chose option: A
+
+You rolled: [3][4][4][2][5]
+
+>>
+   You chose option: B
+
+Which Die?: 
+
+
+Die 2 rolled: 3
+
+>>
+   You chose option: B
+
+Which Die?: 
+
+
+Die 4 rolled: 2
+
+>>
+   You chose option: B
+
+Which Die?: 
+
+
+Die 1 rolled: 1
+
+>>
+   You chose option: C
+
+Sum is: 10
+
+>>
+   You chose option: D
+Saved!
+
+>>
+   You chose option: E
+
+The High Score is: 10
+
+>>
+   You chose option: A
+
+You rolled: [5][6][4][3][4]
+
+>>
+   You chose option: A
+
+You rolled: [1][3][3][6][1]
+
+>>
+   You chose option: B
+
+Which Die?: 
+
+
+Die 4 rolled: 4
+
+>>
+   You chose option: B
+
+Which Die?: 
+
+
+Die 0 rolled: 1
+
+>>
+   You chose option: C
+
+Sum is: 19
+
+>>
+   You chose option: D
+Saved!
+
+>>
+   You chose option: E
+
+The High Score is: 19
+
+>>
+   You chose option: Q
+
+Welcome to High Roll!!
+
+
+Please enter the number of dice you would like in the set: 
+
+Please enter the number of sides you would like on each die: 
+
+Please select an option from the list below:
+Option A: ROLL ALL THE DICE
+Option B: ROLL A SINGLE DIE
+Option C: CACULATE THE SCORE FOR THIS SET
+Option D: SAVE THIS SCORE AS THE HIGH SCORE
+Option E: DISPLAY THE HIGH SCORE
+Option Q: QUIT THE PROGRAM
+
+>>
+   You chose option: A
+
+You rolled: [6][1][12][5][1][6][12][2][8][7][17]
+
+>>
+   You chose option: A
+
+You rolled: [2][10][3][7][17][10][4][7][11][3][10]
+
+>>
+   You chose option: A
+
+You rolled: [7][12][1][7][12][4][14][6][5][17][5]
+
+>>
+   You chose option: B
+
+Which Die?: 
+
+
+Die 10 rolled: 1
+
+>>
+   You chose option: B
+
+Which Die?: 
+
+
+Die 6 rolled: 12
+
+>>
+   You chose option: B
+
+Which Die?: 
+
+
+Die 0 rolled: 1
+
+>>
+   You chose option: C
+
+Sum is: 90
+
+>>
+   You chose option: D
+Saved!
+
+>>
+   You chose option: E
+
+The High Score is: 90
+
+>>
+   You chose option: A
+
+You rolled: [15][3][1][5][3][14][15][3][15][11][3]
+
+>>
+   You chose option: A
+
+You rolled: [16][2][7][8][10][2][8][11][13][5][12]
+
+>>
+   You chose option: B
+
+Which Die?: 
+
+
+Die 4 rolled: 1
+
+>>
+   You chose option: B
+
+Which Die?: 
+
+
+Die 2 rolled: 7
+
+>>
+   You chose option: C
+
+Sum is: 96
+
+>>
+   You chose option: D
+Saved!
+
+>>
+   You chose option: E
+
+The High Score is: 96
+
+>>
+   You chose option: Q
+
+Welcome to High Roll!!
+
+
+Please enter the number of dice you would like in the set: 
+
+Please enter the number of sides you would like on each die: 
+
+Please select an option from the list below:
+Option A: ROLL ALL THE DICE
+Option B: ROLL A SINGLE DIE
+Option C: CACULATE THE SCORE FOR THIS SET
+Option D: SAVE THIS SCORE AS THE HIGH SCORE
+Option E: DISPLAY THE HIGH SCORE
+Option Q: QUIT THE PROGRAM
+
+>>
+   You chose option: A
+
+You rolled: [4][3][3][4][3][2][1][2][2][1][4][2][1][4][4][3][3][1][1][4][4][1][3][1][1][3][3][1][2]
+
+>>
+   You chose option: A
+
+You rolled: [4][1][3][2][2][2][1][2][2][1][4][4][1][2][2][2][3][2][3][3][1][2][1][4][3][3][1][2][2]
+
+>>
+   You chose option: A
+
+You rolled: [1][1][3][2][3][4][1][2][1][3][2][3][3][2][1][1][4][3][1][4][1][3][1][2][2][3][2][2][4]
+
+>>
+   You chose option: B
+
+Which Die?: 
+
+
+Die 28 rolled: 1
+
+>>
+   You chose option: B
+
+Which Die?: 
+
+
+Die 0 rolled: 1
+
+>>
+   You chose option: B
+
+Which Die?: 
+
+
+Die 16 rolled: 3
+
+>>
+   You chose option: C
+
+Sum is: 67
+
+>>
+   You chose option: D
+Saved!
+
+>>
+   You chose option: E
+
+The High Score is: 67
+
+>>
+   You chose option: A
+
+You rolled: [2][4][1][2][4][1][4][1][4][2][3][1][2][1][3][4][4][2][1][3][2][1][4][2][4][3][3][4][4]
+
+>>
+   You chose option: A
+
+You rolled: [2][1][1][1][3][2][4][3][3][2][2][2][2][1][1][1][1][1][1][4][1][1][1][1][4][4][3][2][4]
+
+>>
+   You chose option: B
+
+Which Die?: 
+
+
+Die 18 rolled: 2
+
+>>
+   You chose option: B
+
+Which Die?: 
+
+
+Die 22 rolled: 4
+
+>>
+   You chose option: C
+
+Sum is: 60
+
+>>
+   You chose option: D
+Saved!
+
+>>
+   You chose option: E
+
+The High Score is: 60
+
+>>
+   You chose option: Q
