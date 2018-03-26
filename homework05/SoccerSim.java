@@ -1,22 +1,36 @@
-public class SoccerSim{
+import java.text.DecimalFormat;
+
+public class SoccerSim {
 
 	
 	private final double MAX_TIME_SLICE_IN_SECONDS  = 1800.00;
-    private static final double DEFAULT_TIME_SLICE= 10.0;
-    private static final double EPSILON_VALUE   = 1.0; 
-    private static final int Y_UPPER_BOUND = 0;
-	private static final int Y_LOWER_BOUND = 0;
-	private static final int X_UPPER_BOUND = 0;
-	private static final int X_LOWER_BOUND = 0; 
-	private static Ball [] ball = null;
+  private static final double DEFAULT_TIME_SLICE= 1.0;
+   
+  private static  int Y_UPPER_BOUND = 0;
+	private static int Y_LOWER_BOUND = 0;
+	private static int X_UPPER_BOUND = 0;
+	private static int X_LOWER_BOUND = 0; 
+  private static Ball [] ball = null;
+  private static double timeSlice = DEFAULT_TIME_SLICE;
+  private static double collidePointX = 0;
+  private static double collidePointY = 0;
+  private static double sum = 0;
+  private static double vel = 0;
+  private static int collisionBallOne = 0;
+  private static int collisionBallTwo = 0;
+  private static String restStatement = null;
+  Timer time = new Timer();
+  Ball pole = new Ball(20, 50, 0, 0, 0);
+
 
 	public SoccerSim(String [] args){
 		initialArguments(args);
 	}    
 
+
 	
 
-	public static int fieldSize(String input){
+	public static int[] fieldSize(String [] input){
 
 		if(input.length % 4 == 0){
 			X_UPPER_BOUND = input.length * 100;
@@ -33,102 +47,165 @@ public class SoccerSim{
 			Y_LOWER_BOUND = -(argLength * 100);
 		}
 		else{
-			throw new NumberFormatException("Invalid number of arguments.");
+			System.out.println("Invalid number of arguments. Please try again.");
 			System.exit(1);
 		}
 
-		return X_UPPER_BOUND, X_LOWER_BOUND, Y_UPPER_BOUND, Y_LOWER_BOUND;		
+    int fieldStats[] = new int[4];
+    fieldStats[0] = X_UPPER_BOUND;
+    fieldStats[1] = X_LOWER_BOUND;
+    fieldStats[2] = Y_UPPER_BOUND;
+    fieldStats[3] = Y_LOWER_BOUND;
+
+		return fieldStats;		
 
 	}
 
 	public void initialArguments( String [] args ) {
+     
       int j = 0;
 
-      System.out.println( "Hi! Enter parameters for the number of soccer balls you prefer is the following order: x-position, y-position, x-speed, y-speed" );
+      System.out.println( "SoccerSim" );
       if( 0 == args.length) {
          System.out.println( "Sorry you must enter at least one argument.");
          System.exit( 1 );
       }
+       else if( args.length % 4 != 0 && args.length % 4 != 1) {
+         System.out.println( "Invalid number of arguments. Please try again.");
+         System.exit( 1 );
+      }
 
-      else if(args.length % 4 == 0){ 
+      else if(args.length % 4 == 1){
 
-     	 ball[] = new Ball[Math.floor(args.length / 4)];
-     	 for(int n = 0; n < args.length; n+=4){
-       	 	ball[j] = new Ball(double.parseDouble(args[n]), double.parseDouble(args[n + 1]), double.parseDouble(args[n + 2]), double.parseDouble(args[n + 3]), DEFAULT_TIME_SLICE);
+      timeSlice = Double.parseDouble(args[args.length-1]); 
+      time.validateTimeSlice(timeSlice);
+
+    }
+
+     	 ball = new Ball[(int)Math.floor(args.length / 4)];
+      
+     	 for(int n = 0; n < args.length - 1; n+=4){
+            
+       	 	ball[j] = new Ball(Double.parseDouble(args[n]), Double.parseDouble(args[n + 1]), Double.parseDouble(args[n + 2]), Double.parseDouble(args[n + 3]), timeSlice);
        		j++;   
       	 }
        
         
       }
-      else if (args.length % 4 == 1) {
-      	  for(int n = 0; n < args.length - 2; n+=4){
-       	 	  ball[j] = new Ball(double.parseDouble(args[n]), double.parseDouble(args[n + 1]), double.parseDouble(args[n + 2]), double.parseDouble(args[n + 3]), double.parseDouble(args[args.length - 1]));
-       		  j++;   
-      	 }
-  	   }
-
-        
-     }
+     
 
     public boolean collision(){
 
-        if(ball.length % 4 == 1){ //if a timeslice is eneterd
-            ball.length -= 1;
-        }
+      for(int n = 0; n < ball.length - 1; n++){
 
-        for(int x = 0; x < ball.length - 4; x+=4){
-            if(Math.sqrt(Math.power(ball[x], 2) + Math.power(ball[x+1], 2)) <= 8.9){ // if hypotenuse between two balls is <=8.9
-                return true;
+        if(Math.sqrt(Math.pow((ball[n].xPosition - pole.xPosition), 2) + Math.pow((ball[n].yPosition - pole.yPosition), 2)) <= 8.9 ){
+
+                  collidePointX = pole.xPosition;
+                  collidePointY = pole.yPosition;
+                  System.out.println("Collision of Ball " + (n+1) + " and Pole at: ( " + collidePointX + " , " + collidePointY + " )");
+                  System.exit(0);
+
             }
+
+         else{
+          for(int x = n+1; x < ball.length; x++){
+          
+
+            sum = Math.pow((ball[n].xPosition - ball[x].xPosition), 2) + Math.pow((ball[n].yPosition - ball[x].yPosition), 2);
+
+
+             if(Math.sqrt(sum) <= 8.9 ){
+
+                  collidePointX = ((ball[n].xPosition + ball[x].xPosition)/2);
+                  collidePointY = ((ball[n].yPosition + ball[x].yPosition)/2);
+
+                  collisionBallOne = n+1;
+                  collisionBallTwo = x+1;
+
+                  return true;
+            }
+        
+
             
-        }
+         }
+      }
 
+       
+   }
 
-        return false;
+   return false;
+    
+   }
+        
 
+        
+            
+     
 
-    }
+    public boolean ifAllAtRest(){
+    
 
-    public boolean ifAtRest(){
-        for(int x = 0; x < ball.length; x++){
-            if(ball[x].velocity <= EPSILON_VALUE){
-                return true;
+      for(int x = 0; x < ball.length; x++){
+          vel = ball[x].velocity();
+          if(vel >= (1.0/12.0)){
+            return false;
+          
             }
 
-        }
+         }
 
-        return false;
+      return true;
+
+        
     }
           
-  }
-   
   
-
 	public static void main (String [] args){
-		SoccerSim s = new SoccerSim();
-		Timer t = new Timer();
-        Ball ball = new Ball();
+		SoccerSim s = new SoccerSim(args);
+		Timer t = new Timer(timeSlice);
+   // Ball pole = new Ball(20, 50, 0, 0);
+    int n = 0;
 
-        while(false){
 
-            move();
-            
-            if(collision()){
-                 System.out.println("Collision at: ( " + startXPosition + ", " + startYPosition + ").");
-                 System.exit(0);
+    System.out.printf("%-10s%20s%28s\n", "Ball", "Location", "Inital Velocity" );
+    for(int i = 0; i < ball.length; i++){
 
+       System.out.printf("%s%d%20s%#.4f%s%#.4f%s%12s%#.4f\n", "",  (i+1), "(", ball[i].xPosition, ",",  ball[i].yPosition, ")", "",  ball[i].velocity());
+      
+
+    }
+
+
+       
+
+        while(true){
+    
+            t.tick();
+            if(s.ifAllAtRest()){
+              System.out.println("No collision possible. All balls at rest.");
+              System.exit(0);
             }
+            if(s.collision()){
+                System.out.println("Collision of Ball " + collisionBallOne + " and Ball " + collisionBallTwo +  " at: ( " + collidePointX + " , " + collidePointY + " )" + "at time" + t.toString());
+                System.exit(0);
+               }
 
-            else if(ifAtRest()){
-                System.out.println("No collision is possible.");
-            }
-
-        }
-
-
+            else{
+              for(int i = 0; i < ball.length; i++){
+                System.out.println("Ball " + (i+1) + " at: " + ball[i].toString() + " at " + t.toString());
+                ball[i].move();
+              }
 
 
+               }
+               System.out.println();
+                         
+               
+         }
+        
+          
 
-
-	}
+  }
 }
+      
+
