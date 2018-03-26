@@ -1,36 +1,39 @@
 import java.lang.Math;
+import java.text.DecimalFormat;
 
 public class Ball{
 
 	private static final double RADIUS = 4.45;
-	private double startXPosition = 0;
-	private double startYPosition = 0;
-	private	double initialXSpeed = 0;
-	private	double initalYSpeed = 0;
-	private double timeSlice =0;
+	public double xPosition = 0;
+	public double yPosition = 0;
+	public	double initialXSpeed = 0;
+	public	double initialYSpeed = 0;
+	public double timeSlice =0;
+	public double velocity = 0;
+	 
+	// public double movingPosX = 0;
+	// public double movingPosY = 0;
 
-	
-	private static double timeSlice = 0;
 
 
-	public Ball(double x, double y, double xv, double yv, double timeslice){
-		startXPosition = x;
-		startYPosition = y;
+	public Ball(double x, double y, double xv, double yv, double ts){
+		xPosition = x;
+		yPosition = y;
 		initialXSpeed = xv;
-		initalYSpeed = yv;
-		this.timeslice = timeslice;
+		initialYSpeed = yv;
+		timeSlice = ts;
 
 	}
 
 	
 
-	public static void convertValues(String xArg, String yArg, String xSpeedArg, String ySpeedArg){
+	public void convertValues(String xArg, String yArg, String xSpeedArg, String ySpeedArg){
 
 		try {
-			startXPosition = Double.parseDouble(xArg);
-			startYPosition = Double.parseDouble(yArg);
+			xPosition = Double.parseDouble(xArg);
+			yPosition = Double.parseDouble(yArg);
 			initialXSpeed = Double.parseDouble(xSpeedArg);
-			initalYSpeed = Double.parseDouble(ySpeedArg);
+			initialYSpeed = Double.parseDouble(ySpeedArg);
 		}
 		catch (NumberFormatException nfe){
 			System.out.println("Invalid argument. Please try again.");
@@ -40,21 +43,21 @@ public class Ball{
 
 	}
 
-	public static double move(){
+	public double[] move(){
 
-		for( int x = initialXSpeed; x > 0; x*=0.99){
-			startXPosition = startXPosition + initialXSpeed;
-		}
 		
-		for( int y = initialYSpeed; x > 0; x*=0.99){
-			startYPosition = startYPosition + initialYSpeed;
-		}
+		xPosition += initialXSpeed;
+		initialXSpeed *= Math.pow(0.99, timeSlice);
+		
+		yPosition += initialYSpeed;
+		initialYSpeed *= Math.pow(0.99, timeSlice);
+		
 		
 		
 
-		double moveStats[] = new Double[4];
-		moveStats[0] = startXPosition;
-		moveStats[1] = startYPosition;
+		double moveStats[] = new double[4];
+		moveStats[0] = xPosition;
+		moveStats[1] = yPosition;
 		moveStats[2] = initialXSpeed;
 		moveStats[3] = initialYSpeed;
 
@@ -71,12 +74,15 @@ public class Ball{
 *
 *
 */
-	public static double velocity(){
+	public  double velocity(){
 
+		
 
-		double velocity = Math.sqrt(initialXSpeed + initialYSpeed);
+		velocity = Math.sqrt(Math.pow(initialXSpeed , 2) + Math.pow(initialYSpeed,2));
 
-	    velocity =  (velocity) * (Math.pow(0.99, timeSlice));
+	    velocity *= (Math.pow(0.99, timeSlice));
+
+	    //System.out.println("velocity = " + velocity);
 
 	    return velocity;
 	
@@ -84,23 +90,41 @@ public class Ball{
 	}
 
 
-	public static String toString(){
+	public String toString(){
 
-		DecimalFormat xPos = new DecimalFormat(#.00);
-		DecimalFormat yPos = new DecimalFormat(#.00);
-		DecimalFormat xVel = new DecimalFormat(#.000);
-		DecimalFormat yVel = new DecimalFormat(#.000);
+		DecimalFormat xPos = new DecimalFormat("#0.00");
+		DecimalFormat yPos = new DecimalFormat("#0.00");
+		DecimalFormat xVel = new DecimalFormat("#0.000");
+		DecimalFormat yVel = new DecimalFormat("#0.000");
+
+		if(velocity <= (1.0/12.0)){
+			return ("<" + xPos.format(xPosition) + " , " + yPos.format(yPosition) + " > " +
+		       "< At Rest > ");
+			
+		}
+		{
+
+			
+			return ("<" + xPos.format(xPosition) + " , " + yPos.format(yPosition) + " > " +
+		       "<" + xVel.format(initialXSpeed) + " , " + yVel.format(initialYSpeed) + " > ");
+
+		}
+
 
 		
-
-
-		return "<" + xPos.format(startXPosition) + " , " + yPos.format(startYPosition) + " > " +
-		       "<" + xVel.format(initialXSpeed) + " , " + yVel.format(initialYSpeed) + " > "   );
 
 	}
 
 	public static void main(String []args){
 		
+		Ball b = new Ball(4.0,5.0,6.0,7.0, 1.0);
+		b.toString();
+		b.velocity();
+
+      System.out.println( "    Testing velocity");
+      System.out.print( "      sending '  6.0 and 7.0', expecting double value   9.2195" );
+      try { System.out.println( ((Math.sqrt(85) * Math.pow(0.99, 1.0))== b.velocity()) ? " - got 9.2195" : " - no" ); }
+      catch( Exception e ) { System.out.println ( " - Exception thrown: " + e.toString() ); }
 
 
 	}
