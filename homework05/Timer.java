@@ -4,28 +4,41 @@
 *
 *
 */
+import java.text.DecimalFormat;
 
 public class Timer{
    private double hour = 0;
    private double minute = 0;
    private double second = 0;
    private final double MAX_TIME_SLICE_IN_SECONDS = 1800.00;
-   private static final double DEFAULT_TIME_SLICE = 10.0;
-   private static final double timeSlice = DEFAULT_TIME_SLICE;
+   private static final double DEFAULT_TIME_SLICE = 1.0;
+   private static double timeSlice = DEFAULT_TIME_SLICE;
+   private double totalSeconds = 0;
+
+   public Timer(){
+
+   }
+
+   public Timer(double ts){
+    this.timeSlice = ts;
+
+
+   }
    
 
-   public double validateTimeSlice( String argValue ) {
+   public double validateTimeSlice( double argValue ) {
 
-    double enteredTimeSlice = Double.parseDouble(argValue);
-    if(enteredTimeSlice <= 0 ){
+    //double enteredTimeSlice = Double.parseDouble(argValue);
+
+    if(argValue <= 0 ){
       throw new IllegalArgumentException("Timeslice too small!");
     }
-    if(enteredTimeSlice >1800){
+    if(argValue >1800){
       throw new IllegalArgumentException("TimeSlice too large!");
     }
-    if(enteredTimeSlice > 0 && enteredTimeSlice < 1800){
+    if(argValue > 0 && argValue < 1800){
 
-      timeSlice = enteredTimeSlice;
+      timeSlice = argValue;
 
     }
 
@@ -44,20 +57,39 @@ public class Timer{
     minute = Math.floor((totalSeconds % 3600)/60);
     second = totalSeconds - (hour * 3600) - (minute * 60);
     
-    //System.out.println("Total Seconds are: " + totalSeconds);
+    
+      return totalSeconds;
+   }
 
+
+   public double getTotalSeconds() {
 
       return totalSeconds;
    }
+
+
 
     public String toString() {
     	
     	DecimalFormat df = new DecimalFormat("#.0000");
 
 
-      return " Hour: " + hour + " Minute: " + minute + " Second:" + df.format(second);
+      return " Hour: " + hour + " Minute: " + minute + " Second: " + df.format(second);
    }
 
+
+   public static void main(String [] args){
+    
+    Timer time = new Timer();
+
+   while(time.getTotalSeconds() < 43200){
+    time.tick();
+    System.out.println(time.toString());
+  }
+
+
+
+   }
 
    
 
