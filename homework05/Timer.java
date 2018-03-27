@@ -1,5 +1,9 @@
-/*
+/**
+* This program is a timer. It "ticks" every second, and uses a given timeslice to keep tract of time.
 *
+*
+* @Author Veda Ashok
+* @Date 20 March 2018
 *
 *
 *
@@ -19,21 +23,19 @@ public class Timer{
 
    }
 
-   public Timer(double ts){
+   public Timer(double ts){  //constructor for Timer
     this.timeSlice = ts;
 
 
    }
    
 
-   public double validateTimeSlice( double argValue ) {
-
-    //double enteredTimeSlice = Double.parseDouble(argValue);
+   public double validateTimeSlice( double argValue ) {  //Check if timeslice is usable
 
     if(argValue <= 0 ){
       throw new IllegalArgumentException("Timeslice too small!");
     }
-    if(argValue >1800){
+    if(argValue > 1800){
       throw new IllegalArgumentException("TimeSlice too large!");
     }
     if(argValue > 0 && argValue < 1800){
@@ -46,12 +48,7 @@ public class Timer{
    }
 
 
-  /*
-   *
-   *  Method to calculate the next tick from the time increment
-   *  @return double-precision value of the current clock tick
-   */
-   public double tick() {
+   public double tick() {    //tick: increment time by timeslice
     totalSeconds += timeSlice;
     hour = Math.floor(totalSeconds/3600);
     minute = Math.floor((totalSeconds % 3600)/60);
@@ -69,7 +66,7 @@ public class Timer{
 
 
 
-    public String toString() {
+    public String toString() {   //display results of time
     	
     	DecimalFormat df = new DecimalFormat("#.0000");
 
@@ -82,11 +79,11 @@ public class Timer{
     
     Timer time = new Timer();
 
-   while(time.getTotalSeconds() < 43200){
-    time.tick();
-    System.out.println(time.toString());
-  }
-
+      while(time.getTotalSeconds() < 500){
+         time.tick();
+         System.out.println(time.toString());
+      }
+  
 
 
    }
