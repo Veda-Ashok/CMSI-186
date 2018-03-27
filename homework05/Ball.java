@@ -3,8 +3,8 @@
 * velocity. It takes into accound friction.
 *
 *
-* @Author Veda Ashok
-* @Date 20 March 2018
+*@Author Veda Ashok
+*@Date 20 March 2018
 *
 *
 *
