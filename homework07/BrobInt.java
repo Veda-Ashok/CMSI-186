@@ -67,7 +67,7 @@
                                 sign = 1;
                                 len -= 1; //which side is this chopping off?
                             
-                                System.out.println("Internal Value is: " + internalValue);
+                                //System.out.println("Internal Value is: " + internalValue);
                          }
 
                          for(int i = 0; i <= len; i++){
@@ -100,7 +100,8 @@
                                          return false;
                                   }
                           }
-                  
+                   
+
 
                         return true;
 
@@ -153,14 +154,15 @@
                               if(internalValue.length() <= gint.internalValue.length()){
                                       largerNumber = gint.internalValue.length();
                                       smallerNumber = internalValue.length();
+                                      
 
                                       int [] smallerIntArrayWithZeros = new int[largerNumber];
                                         
                                       for(int y = 0; y <= largerNumber - 1; y++){ //for every index after the smallerNumber until its length is the same as LargerNumber, store a 0
                                           
-                                          if(y <= smallerNumber){
+                                          if(y < smallerNumber){
                                                 smallerIntArrayWithZeros[y] = intArray[y];
-                                                System.out.println("intArray is: " + intArray[y]);
+                                                //System.out.println("intArray is: " + intArray[y]);
 
                                           }
                                           else{
@@ -170,10 +172,11 @@
                                       }
 
                                       int [] sum = new int[largerNumber + 1];
-                                      for(int x = 0; x < largerNumber; x++){
-                                            System.out.println("intArray at " + x + " :" + smallerIntArrayWithZeros[x]);
-                                            System.out.println("gint.intArray at " + x + " :" + gint.intArray[x]);
-
+                                      int x = 0;
+                                      for( x = 0; x < largerNumber; x++){
+                                            //System.out.println("intArray at " + x + " :" + smallerIntArrayWithZeros[x]);
+                                            //System.out.println("gint.intArray at " + x + " :" + gint.intArray[x]);
+                                           
                                      
                                             sum[x] = smallerIntArrayWithZeros[x] + gint.intArray[x] + carry;
 
@@ -184,17 +187,23 @@
                                             else{
                                                 carry = 0;
                                             }
+
+                                            
+
                                 
                                       }
 
                                       
-                                       sum[largerNumber] = carry;
+                                      sum[x] = carry;
+                                      
 
                                     
 
-                                      for(int i = largerNumber - 1; i >= 0; i--){
+                                      for(int i = largerNumber; i >= 0 ; i--){
                                         result += sum[i]; 
                                       }
+
+                                      //System.out.println("Result is: " + result);
                                       
                                       result = removeZeros(result);
 
@@ -381,12 +390,12 @@
 
                    public String removeZeros(String value){
                     String newValue = "";
-                    System.out.println("value is: " + value);
+                   // System.out.println("value is: " + value);
                         for(int x = 0; x <= value.length()-1; x++){
                             if(value.charAt(x) != '0'){
-                                System.out.println("x is: " + x);
+                                //System.out.println("x is: " + x);
                                 newValue = value.substring(x , value.length());
-                                System.out.println("newvalue is: " + newValue);
+                                //System.out.println("newvalue is: " + newValue);
                                 return newValue;
                                 
                             }
