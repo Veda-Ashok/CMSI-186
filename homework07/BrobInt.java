@@ -65,14 +65,15 @@
 
                          if(internalValue.charAt(0) == '-'){
                                 sign = 1;
-                                //len -= 1; //which side is this chopping off?
-                                //internalValue = internalValue.substring(1, internalValue.length());
+                                len -= 1; //which side is this chopping off?
+                            
                                 System.out.println("Internal Value is: " + internalValue);
                          }
 
                          for(int i = 0; i <= len; i++){
                                  intArray[i] = this.reversed.charAt(i) - 48;
-                                
+                                 //System.out.println("intArray at " + i + " is: " + intArray[i]);
+                            
                                 
                          }
 
@@ -99,8 +100,7 @@
                                          return false;
                                   }
                           }
-                   
-
+                  
 
                         return true;
 
@@ -154,87 +154,116 @@
                                       largerNumber = gint.internalValue.length();
                                       smallerNumber = internalValue.length();
 
-                                      for(int y = smallerNumber; y < largerNumber - 1; y++){ //for every index after the smallerNumber until its length is the same as LargerNumber, store a 0
-                                          intArray[y] = 0;
+                                      int [] smallerIntArrayWithZeros = new int[largerNumber];
+                                        
+                                      for(int y = 0; y <= largerNumber - 1; y++){ //for every index after the smallerNumber until its length is the same as LargerNumber, store a 0
+                                          
+                                          if(y <= smallerNumber){
+                                                smallerIntArrayWithZeros[y] = intArray[y];
+                                                System.out.println("intArray is: " + intArray[y]);
 
+                                          }
+                                          else{
+                                                smallerIntArrayWithZeros[y] = 0;
+                                          }
                                       
                                       }
+
+                                      int [] sum = new int[largerNumber + 1];
+                                      for(int x = 0; x < largerNumber; x++){
+                                            System.out.println("intArray at " + x + " :" + smallerIntArrayWithZeros[x]);
+                                            System.out.println("gint.intArray at " + x + " :" + gint.intArray[x]);
+
+                                     
+                                            sum[x] = smallerIntArrayWithZeros[x] + gint.intArray[x] + carry;
+
+                                            if(sum[x] > 9){
+                                                carry = 1;
+                                                sum[x] -= 10;
+                                            }
+                                            else{
+                                                carry = 0;
+                                            }
+                                
+                                      }
+
+                                      
+                                       sum[largerNumber] = carry;
+
+                                    
+
+                                      for(int i = largerNumber - 1; i >= 0; i--){
+                                        result += sum[i]; 
+                                      }
+                                      
+                                      result = removeZeros(result);
+
+                                      if(sign == 1){
+                                          result = "-" + result;
+                                      }
+
                                       
 
                               }
+
                               else if(internalValue.length() > gint.internalValue.length()){
                                       largerNumber = internalValue.length();
                                       smallerNumber = gint.internalValue.length();
 
-                                       for(int y = smallerNumber; y < largerNumber - 1; y++){
-                                          gint.intArray[y] = 0;
+                                       int [] smallerIntArrayWithZeros = new int[largerNumber];
+                                        
+                                      for(int y = 0; y < largerNumber - 1; y++){ //for every index after the smallerNumber until its length is the same as LargerNumber, store a 0
+                                          
+                                          if(y < smallerNumber){
+                                                smallerIntArrayWithZeros[y] = gint.intArray[y];
+                                          }
+                                          else{
+                                                smallerIntArrayWithZeros[y] = 0;
+                                          }
                                       
                                       }
+
+                                      int [] sum = new int[largerNumber + 1];
+                                      for(int x = 0; x < largerNumber; x++){
+                                     
+                                            sum[x] = intArray[x] + smallerIntArrayWithZeros[x] + carry;
+
+                                            if(sum[x] > 9){
+                                                carry = 1;
+                                                sum[x] -= 10;
+                                            }
+                                            else{
+                                                carry = 0;
+                                            }
+
+                                
+                                      }
+
                                       
-
-                              }
-
-
+                                       sum[largerNumber] = carry;
+                                    
 
 
-                             
-                              int [] sum = new int[largerNumber + 1];
-                              for(int x = 0; x < largerNumber; x++){
-                                System.out.println("intArray at " + x + ": " + intArray[x]);
-                              }
-
-                              for(int x = 0; x < largerNumber-1; x++){
-                                     //System.out.println("largerNumber is:  " + largerNumber);
-                                      sum[x] = intArray[x] + gint.intArray[x] + carry;
-                                     System.out.println("intArray at " + x + " is: " + intArray[x]); // why is this -3 at index 6?
-                                      System.out.println("gint.intArray at  " + x + " is: " + gint.intArray[x]);
-                                      System.out.println("Sum at " + x + " is: " + sum[x]);
-
-                                      if(sum[x] > 9){
-                                              carry = 1;
-                                              sum[x] -= 10;
+                                      for(int i = largerNumber - 1; i >= 0; i--){
+                                            result += sum[i]; 
                                       }
-                                      else{
-                                              carry = 0;
+                                      
+                                      result = removeZeros(result);
+
+                                      if(sign == 1){
+                                            result = "-" + result;
                                       }
 
-                                      //System.out.println("Carry at is: " + carry);
 
 
-                                      sum[largerNumber-1] = carry;   //last number will either be 0 or 1 depending on the last carry
-                                      //System.out.println("Last number is " + sum[largerNumber]);
-                              }
-
-                                       toArray(sum);
-                                       sum[largerNumber-1] = carry;
-
-
-                            System.out.println("Sign is: " + sign); 
-
-
-
-                              if(sign == 1){
-                                result = "-";
-                              }
-
-
-
-                              for(int i = largerNumber - 1; i >= 0; i--){
-                                result += sum[i];
-                                
-                                
-                              }
-
-                                                                   
-                        
+                       
                           
                         }
 
+                    }  
 
-                        
-                       // BrobInt sumBI = new BrobInt(result);
-
-                        // System.out.println("sumBI is:  " + sumBI.reversed);
+  
+                    
                         return new BrobInt(result);
                     
 
@@ -350,7 +379,20 @@
                       System.out.println( Arrays.toString( d ) );
                    }
 
-                   public void removeZeros(String value){
+                   public String removeZeros(String value){
+                    String newValue = "";
+                    System.out.println("value is: " + value);
+                        for(int x = 0; x <= value.length()-1; x++){
+                            if(value.charAt(x) != '0'){
+                                System.out.println("x is: " + x);
+                                newValue = value.substring(x , value.length());
+                                System.out.println("newvalue is: " + newValue);
+                                return newValue;
+                                
+                            }
+                        }
+
+                        return newValue;
 
                    }
 
