@@ -143,11 +143,9 @@
                         int largerNumber = 0;
                         int smallerNumber = 0;
                         String result = "";
-                        
-                        
                      
                         if(gint.sign != this.sign ){
-                          //subtract
+                          //this.subtract(gint);
                         }
                         else{
 
@@ -274,18 +272,257 @@
                    *  @return GinormousInt that is the difference of the value of this GinormousInt and the one passed in
                    *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
                    public BrobInt subtract( BrobInt gint ) {
-                          // int borrow = 0;
-                          // int[] difference = null;
+                        int borrow = 0;  
+                        int largerNumber = 0;
+                        int smallerNumber = 0;
+                        String result = "";
+                     
+                        if(gint.sign != this.sign){
+                          this.add(gint);
 
-                          // if(gint.sign == 1 && this.sign == 1){
-                          //         gint.internalValue.add(this.internalValue);
+                        }
 
-                          // }
+                        else{
 
-                      throw new UnsupportedOperationException( "\n         Sorry, that operation is not yet implemented." );
+                              if(internalValue.length() == gint.internalValue.length()){
+                                 if(internalValue.charAt(0) > gint.internalValue.charAt(0)){
+                                    largerNumber = internalValue.length();
+                                    smallerNumber = gint.internalValue.length();
+
+                                    int [] difference = new int[largerNumber+1];
+                                      int x = 0;
+                                      for( x = 0; x < largerNumber; x++){
+                                           
+                                            difference[x] = intArray[x] - gint.intArray[x] - borrow;
+                                            
+                                            if(difference[x] < 0){
+                                                if(x == largerNumber-1){
+                                                    difference[x] = difference[x];
+                                                }
+
+                                                else{
+                                                     borrow = 1;
+                                                    difference[x] = -(difference[x]);
+
+                                                }
+
+                                               
+                                            }
+                                            else{
+                                                borrow = 0;
+                                            }
+       
+                                            
+                                      }
+
+                                    
+                                      
+                                      for(int i = largerNumber; i >= 0 ; i--){
+                                        result += difference[i]; 
+                                      }
+                                      
+                                      result = removeZeros(result);
+
+                                      if(sign == 1){
+                                          result = "-" + result;
+                                      }
+
+
+                                }
+
+                                  else if(internalValue.charAt(0) < gint.internalValue.charAt(0)){
+                                    largerNumber = gint.internalValue.length();
+                                    smallerNumber = internalValue.length();
+
+                                    int [] difference = new int[largerNumber + 1];
+                                      int x = 0;
+                                      for( x = 0; x < largerNumber; x++){
+                                           
+                                            difference[x] = intArray[x] - gint.intArray[x] - borrow;
+                                        
+
+                                            if(difference[x] < 0){
+                                                if(x == largerNumber-1){
+                                                    difference[x] = difference[x];
+                                                }
+
+                                                else{
+                                                     borrow = 1;
+                                                     difference[x] = -(difference[x]);
+                                                     gint.intArray[x+1] -= 1;
+
+                                                }
+
+                                               
+                                            }
+                                            else{
+                                                borrow = 0;
+                                            }
+
+                                                
+                                            
+                                      }
+
+                                     
+                                      
+                                      for(int i = largerNumber; i >= 0 ; i--){
+                                        result += difference[i]; 
+                                      }
+                                      
+                                      result = removeZeros(result);
+
+                                      if(sign == 1){
+                                          result = "-" + result;
+                                      }
+
+
+
+                                    
+                                }
+
+                                     
+
+                                      
+                            }
+
+
+                              else if(internalValue.length() < gint.internalValue.length() ){
+                                      largerNumber = gint.internalValue.length();
+                                      smallerNumber = internalValue.length();
+                                      
+                                      int [] smallerIntArrayWithZeros = new int[largerNumber];
+                                        
+                                      for(int y = 0; y <= largerNumber - 1; y++){ //for every index after the smallerNumber until its length is the same as LargerNumber, store a 0
+                                          
+                                          if(y < smallerNumber){
+                                                smallerIntArrayWithZeros[y] = intArray[y];
+                                                
+                                          }
+                                          else{
+                                                smallerIntArrayWithZeros[y] = 0;
+                                          }
+
+
+                                      
+                                      }
+
+                                      int [] difference = new int[largerNumber + 1];
+                                      int x = 0;
+                                      for( x = 0; x < largerNumber; x++){
+                                           
+                                            difference[x] = gint.intArray[x] - smallerIntArrayWithZeros[x] - borrow;
+                                            
+
+                                            if(difference[x] < 0){
+                                                if(x == largerNumber - 2){
+                                                    difference[x] = -(difference[x]);
+                                                }
+
+                                                else{
+                                                     borrow = 1;
+                                                    difference[x] = -(difference[x]);
+                                                    gint.intArray[x+1] -= 1;
+
+                                                }
+
+                                               
+                                            }
+                                            else{
+                                                borrow = 0;
+                                            }
+
+                                                
+                                            
+                                
+                                      }
+
+                                     
+
+            
+                                      for(int i = largerNumber; i >= 0 ; i--){
+                                        result += difference[i]; 
+                                      }
+                                      
+                                      result = removeZeros(result);
+
+                                      
+                                      result = "-" + result;
+
+                                      
+
+                              }
+
+                              else if(internalValue.length() > gint.internalValue.length()){
+                                      largerNumber = internalValue.length();
+                                      smallerNumber = gint.internalValue.length();
+
+                                       int [] smallerIntArrayWithZeros = new int[largerNumber];
+                                        
+                                      for(int y = 0; y < largerNumber - 1; y++){ //for every index after the smallerNumber until its length is the same as LargerNumber, store a 0
+                                          
+                                          if(y < smallerNumber){
+                                                smallerIntArrayWithZeros[y] = gint.intArray[y];
+                                          }
+                                          else{
+                                                smallerIntArrayWithZeros[y] = 0;
+                                          }
+                                      
+                                      }
+
+                                      int [] difference = new int[largerNumber + 1];
+                                      for(int x = 0; x < largerNumber; x++){
+                                     
+                                            difference[x] = intArray[x] - smallerIntArrayWithZeros[x] - borrow;
+
+                                            if(difference[x] < 0){
+                                                if(x == largerNumber-1){
+                                                    difference[x] = difference[x];
+                                                }
+
+                                                else{
+                                                     borrow = 1;
+                                                    difference[x] = -(difference[x]);
+
+                                                }
+
+                                               
+                                            }
+                                            else{
+                                                borrow = 0;
+                                            }
+
+                                
+                                      }
+
+                                      
+                                    
+
+
+                                      for(int i = largerNumber - 1; i >= 0; i--){
+                                            result += difference[i]; 
+                                      }
+                                      
+                                      result = removeZeros(result);
+
+                                      if(sign == 1){
+                                            result = "-" + result;
+                                      }
+                       
+                          
+                        }
+
+                    }  
+
+  
+                    
+                        return new BrobInt(result);
+            }
+        
+
+                      
                     //check if both are negatve. if so add. otherwise, subtract.
                       
-                   }
+        
 
                   /** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                    *  Method to multiply the value of a GinormousIntk passed as argument to this GinormousInt
