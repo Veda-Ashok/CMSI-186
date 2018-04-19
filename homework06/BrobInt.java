@@ -23,8 +23,8 @@
 
         public class BrobInt {
 
-           // public static final BrobInt ZERO     = new BrobInt(  "0" );      /// Constant for "zero"
-           // public static final BrobInt ONE      = new BrobInt(  "1" );      /// Constant for "one"
+           public static final BrobInt ZERO     = new BrobInt(  "0" );      /// Constant for "zero"
+           public static final BrobInt ONE      = new BrobInt(  "1" );      /// Constant for "one"
            // public static final BrobInt TWO      = new BrobInt(  "2" );      /// Constant for "two"
            // public static final BrobInt THREE    = new BrobInt(  "3" );      /// Constant for "three"
            // public static final BrobInt FOUR     = new BrobInt(  "4" );      /// Constant for "four"
@@ -33,10 +33,10 @@
            // public static final BrobInt SEVEN    = new BrobInt(  "7" );      /// Constant for "seven"
            // public static final BrobInt EIGHT    = new BrobInt(  "8" );      /// Constant for "eight"
            // public static final BrobInt NINE     = new BrobInt(  "9" );      /// Constant for "nine"
-           // public static final BrobInt TEN      = new BrobInt( "10" );      /// Constant for "ten"
+           public static final BrobInt TEN      = new BrobInt( "10" );      /// Constant for "ten"
 
-           /// Some constants for other intrinsic data types
-           ///  these can help speed up the math if they fit into the proper memory space
+           // // Some constants for other intrinsic data types
+           // //  these can help speed up the math if they fit into the proper memory space
            // public static final BrobInt MAX_INT  = new BrobInt( new Integer( Integer.MAX_VALUE ).toString() );
            // public static final BrobInt MIN_INT  = new BrobInt( new Integer( Integer.MIN_VALUE ).toString() );
            // public static final BrobInt MAX_LONG = new BrobInt( new Long( Long.MAX_VALUE ).toString() );
@@ -47,7 +47,7 @@
 
                    private int  sign         = 0;         // "0" is positive, "1" is negative
                    private String reversed      = "";        // the backwards version of the internal String representation
-                   private byte[] byteVersion   = null;      // byte array for storing the string values; uses the reversed string
+                   private int[] intArray   = null;      // byte array for storing the string values; uses the reversed string
 
                   /**
                    *  Constructor takes a string and assigns it to the internal storage, checks for a sign character
@@ -57,26 +57,27 @@
                    */
                    public BrobInt( String value ) {
 
-                         int[] intArray = null;
+                         
                          internalValue = value;
-                         String reversedValue = reverser(this);
+                         reverser();
                          intArray = new int[internalValue.length()];
-                         int len = internalValue.length();
+                         int len = internalValue.length() - 1;
 
                          if(internalValue.charAt(0) == '-'){
+                                sign = 1;
                                 len -= 1; //which side is this chopping off?
+                            
+                                //System.out.println("Internal Value is: " + internalValue);
                          }
 
-                         for(int i = 0; i < len; i++){
-                                 intArray[i] = reversedValue.charAt((reversedValue.length() -1) - i);
+                         for(int i = 0; i <= len; i++){
+                                 intArray[i] = this.reversed.charAt(i) - 48;
+                                 //System.out.println("intArray at " + i + " is: " + intArray[i]);
+                            
                                 
                          }
 
-
-                      
-              
-
-                   }
+                    }
 
                   /** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                    *  Method to validate that all the characters in the value are valid decimal digits
@@ -95,7 +96,7 @@
                            }
                       
                           for(int i = 0; i < internalValue.length(); i++){
-                                  if(!(isValid.contains(internalValue.charAt(i)))){
+                                  if(!(isValid.contains("" + internalValue.charAt(i)))){
                                          return false;
                                   }
                           }
@@ -111,19 +112,9 @@
                    *  Method to reverse the value of this GinormousInt
                    *  @return GinormousInt that is the reverse of the value of this GinormousInt
                    *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-                   public BrobInt reverser() {
-                           char [] numberArray = internalValue.toCharArray();
-                           char [] reverse = new char[numberArray.length];
-                           int y = 0;
-
-                           for(int x = numberArray.length - 1 ; x >= 0; x--){
-                                  reverse[y] = numberArray[x];
-                                  y++;
-                           }
-
-                              String newArray = new String(reverse);
-                              BrobInt reversedBI = new BrobInt(newArray);
-                              return reversedBI;
+                   public void reverser() {
+                          reversed = new StringBuffer(internalValue).reverse().toString();
+                          
                   
                    }
 
@@ -135,7 +126,7 @@
                    *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
                    public static BrobInt reverser( BrobInt gint ) {
 
-                          return gint.reverser();
+                          return new BrobInt(gint.reversed);
                     
                    }
 
@@ -147,55 +138,129 @@
                    *  @return GinormousInt that is the sum of the value of this GinormousInt and the one passed in
                    *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
                   
-                   public BrobInt addInt( BrobInt gint ) {
+                   public BrobInt add( BrobInt gint ) {
                         int carry = 0;  
                         int largerNumber = 0;
                         int smallerNumber = 0;
                         String result = "";
-                        
                      
                         if(gint.sign != this.sign ){
-                          //subtract
+                          //this.subtract(gint);
                         }
                         else{
 
-                              if(internalValue.length() < gint.internalValue.length()){
+                              if(internalValue.length() <= gint.internalValue.length()){
                                       largerNumber = gint.internalValue.length();
                                       smallerNumber = internalValue.length();
+                                      
+
+                                      int [] smallerIntArrayWithZeros = new int[largerNumber];
+                                        
+                                      for(int y = 0; y <= largerNumber - 1; y++){ //for every index after the smallerNumber until its length is the same as LargerNumber, store a 0
+                                          
+                                          if(y < smallerNumber){
+                                                smallerIntArrayWithZeros[y] = intArray[y];
+                                                
+
+                                          }
+                                          else{
+                                                smallerIntArrayWithZeros[y] = 0;
+                                          }
+                                      
+                                      }
+
+                                      int [] sum = new int[largerNumber + 1];
+                                      int x = 0;
+                                      for( x = 0; x < largerNumber; x++){
+                                           
+                                            sum[x] = smallerIntArrayWithZeros[x] + gint.intArray[x] + carry;
+
+                                            if(sum[x] > 9){
+                                                carry = 1;
+                                                sum[x] -= 10;
+                                            }
+                                            else{
+                                                carry = 0;
+                                            }
+                                
+                                      }
+
+                                      
+                                      sum[x] = carry;
+                                      
+                                      for(int i = largerNumber; i >= 0 ; i--){
+                                        result += sum[i]; 
+                                      }
+                                      
+                                      result = removeZeros(result);
+
+                                      if(sign == 1){
+                                          result = "-" + result;
+                                      }
+
+                                      
 
                               }
+
                               else if(internalValue.length() > gint.internalValue.length()){
                                       largerNumber = internalValue.length();
-                                      smallerNumber = gint. internalValue.length();
+                                      smallerNumber = gint.internalValue.length();
 
-                              }
-
-                              int internalValueArray[] = new int[largerNumber];
-                              int gintValueArray[] = new int[largerNumber];
-                              int [] sum = new int[largerNumber + 1];
-
-                              for(int x = 0; x < largerNumber; x++){
-                                      sum[x] = internalValueArray[x] + gintValueArray[x] + carry;
-                                      if(sum[x] > 9){
-                                              carry = 1;
-                                              sum[x] -= 10;
-                                      }
-                                      else{
-                                              carry = 0;
+                                       int [] smallerIntArrayWithZeros = new int[largerNumber];
+                                        
+                                      for(int y = 0; y < largerNumber - 1; y++){ //for every index after the smallerNumber until its length is the same as LargerNumber, store a 0
+                                          
+                                          if(y < smallerNumber){
+                                                smallerIntArrayWithZeros[y] = gint.intArray[y];
+                                          }
+                                          else{
+                                                smallerIntArrayWithZeros[y] = 0;
+                                          }
+                                      
                                       }
 
-                                      sum[largerNumber] = carry;   //last number will either be 0 or 1 depending on the last carry
-                              } 
+                                      int [] sum = new int[largerNumber + 1];
+                                      for(int x = 0; x < largerNumber; x++){
+                                     
+                                            sum[x] = intArray[x] + smallerIntArrayWithZeros[x] + carry;
 
-                               result = Arrays.toString(sum);
-                        
+                                            if(sum[x] > 9){
+                                                carry = 1;
+                                                sum[x] -= 10;
+                                            }
+                                            else{
+                                                carry = 0;
+                                            }
+
+                                
+                                      }
+
+                                      
+                                      sum[largerNumber] = carry;
+                                    
+
+
+                                      for(int i = largerNumber - 1; i >= 0; i--){
+                                            result += sum[i]; 
+                                      }
+                                      
+                                      result = removeZeros(result);
+
+                                      if(sign == 1){
+                                            result = "-" + result;
+                                      }
+
+
+
+                       
                           
                         }
 
-                        
-                        BrobInt sumBI = new BrobInt(result);
+                    }  
 
-                        return sumBI.reverser();
+  
+                    
+                        return new BrobInt(result);
                     
 
                       
@@ -206,18 +271,258 @@
                    *  @param  gint         GinormousInt to subtract from this
                    *  @return GinormousInt that is the difference of the value of this GinormousInt and the one passed in
                    *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-                   public BrobInt subtractInt( BrobInt gint ) {
-                          // int borrow = 0;
-                          // int[] difference = null;
+                   public BrobInt subtract( BrobInt gint ) {
+                        int borrow = 0;  
+                        int largerNumber = 0;
+                        int smallerNumber = 0;
+                        String result = "";
+                     
+                        if(gint.sign != this.sign){
+                         // this.add(gint);
 
-                          // if(gint.sign == 1 && this.sign == 1){
-                          //         gint.internalValue.add(this.internalValue);
+                        }
 
-                          // }
+                        else{
 
+                              if(internalValue.length() == gint.internalValue.length()){
+                                 if(internalValue.charAt(0) > gint.internalValue.charAt(0)){
+                                    largerNumber = internalValue.length();
+                                    smallerNumber = gint.internalValue.length();
+
+                                    int [] difference = new int[largerNumber+1];
+                                      int x = 0;
+                                      for( x = 0; x < largerNumber; x++){
+                                           
+                                            difference[x] = intArray[x] - gint.intArray[x] - borrow;
+                                            
+                                            if(difference[x] < 0){
+                                                if(x == largerNumber-1){
+                                                    difference[x] = difference[x];
+                                                }
+
+                                                else{
+                                                     borrow = 1;
+                                                    difference[x] = -(difference[x]);
+
+                                                }
+
+                                               
+                                            }
+                                            else{
+                                                borrow = 0;
+                                            }
+       
+                                            
+                                      }
+
+                                    
+                                      
+                                      for(int i = largerNumber; i >= 0 ; i--){
+                                        result += difference[i]; 
+                                      }
+                                      
+                                      result = removeZeros(result);
+
+                                      if(sign == 1){
+                                          result = "-" + result;
+                                      }
+
+
+                                }
+
+                                  else if(internalValue.charAt(0) < gint.internalValue.charAt(0)){
+                                    largerNumber = gint.internalValue.length();
+                                    smallerNumber = internalValue.length();
+
+                                    int [] difference = new int[largerNumber + 1];
+                                      int x = 0;
+                                      for( x = 0; x < largerNumber; x++){
+                                           
+                                            difference[x] = intArray[x] - gint.intArray[x] - borrow;
+                                        
+
+                                            if(difference[x] < 0){
+                                                if(x == largerNumber-1){
+                                                    difference[x] = difference[x];
+                                                }
+
+                                                else{
+                                                     borrow = 1;
+                                                     difference[x] = -(difference[x]);
+                                                     gint.intArray[x+1] -= 1;
+
+                                                }
+
+                                               
+                                            }
+                                            else{
+                                                borrow = 0;
+                                            }
+
+                                                
+                                            
+                                      }
+
+                                     
+                                      
+                                      for(int i = largerNumber; i >= 0 ; i--){
+                                        result += difference[i]; 
+                                      }
+                                      
+                                      result = removeZeros(result);
+
+                                      if(sign == 1){
+                                          result = "-" + result;
+                                      }
+
+
+
+                                    
+                                }
+
+                                     
+
+                                      
+                            }
+
+
+                              else if(internalValue.length() < gint.internalValue.length() ){
+                                      largerNumber = gint.internalValue.length();
+                                      smallerNumber = internalValue.length();
+                                      
+                                      int [] smallerIntArrayWithZeros = new int[largerNumber];
+                                        
+                                      for(int y = 0; y <= largerNumber - 1; y++){ //for every index after the smallerNumber until its length is the same as LargerNumber, store a 0
+                                          
+                                          if(y < smallerNumber){
+                                                smallerIntArrayWithZeros[y] = intArray[y];
+                                                
+                                          }
+                                          else{
+                                                smallerIntArrayWithZeros[y] = 0;
+                                          }
+
+
+                                      
+                                      }
+
+                                      int [] difference = new int[largerNumber + 1];
+                                      int x = 0;
+                                      for( x = 0; x < largerNumber; x++){
+                                           
+                                            difference[x] = gint.intArray[x] - smallerIntArrayWithZeros[x] - borrow;
+                                            
+
+                                            if(difference[x] < 0){
+                                                if(x == largerNumber - 2){
+                                                    difference[x] = -(difference[x]);
+                                                }
+
+                                                else{
+                                                     borrow = 1;
+                                                    difference[x] = -(difference[x]);
+                                                    gint.intArray[x+1] -= 1;
+
+                                                }
+
+                                               
+                                            }
+                                            else{
+                                                borrow = 0;
+                                            }
+
+                                                
+                                            
+                                
+                                      }
+
+                                     
+
+            
+                                      for(int i = largerNumber; i >= 0 ; i--){
+                                        result += difference[i]; 
+                                      }
+                                      
+                                      result = removeZeros(result);
+
+                                      
+                                      result = "-" + result;
+
+                                      
+
+                              }
+
+                              else if(internalValue.length() > gint.internalValue.length()){
+                                      largerNumber = internalValue.length();
+                                      smallerNumber = gint.internalValue.length();
+
+                                       int [] smallerIntArrayWithZeros = new int[largerNumber];
+                                        
+                                      for(int y = 0; y < largerNumber - 1; y++){ //for every index after the smallerNumber until its length is the same as LargerNumber, store a 0
+                                          
+                                          if(y < smallerNumber){
+                                                smallerIntArrayWithZeros[y] = gint.intArray[y];
+                                          }
+                                          else{
+                                                smallerIntArrayWithZeros[y] = 0;
+                                          }
+                                      
+                                      }
+
+                                      int [] difference = new int[largerNumber + 1];
+                                      for(int x = 0; x < largerNumber; x++){
+                                     
+                                            difference[x] = intArray[x] - smallerIntArrayWithZeros[x] - borrow;
+
+                                            if(difference[x] < 0){
+                                                if(x == largerNumber-1){
+                                                    difference[x] = difference[x];
+                                                }
+
+                                                else{
+                                                     borrow = 1;
+                                                    difference[x] = -(difference[x]);
+
+                                                }
+
+                                               
+                                            }
+                                            else{
+                                                borrow = 0;
+                                            }
+
+                                
+                                      }
+
+                                      
+                                    
+
+
+                                      for(int i = largerNumber - 1; i >= 0; i--){
+                                            result += difference[i]; 
+                                      }
+                                      
+                                      result = removeZeros(result);
+
+                                      if(sign == 1){
+                                            result = "-" + result;
+                                      }
+                       
+                          
+                        }
+
+                    }  
+
+  
+                    
+                        return new BrobInt(result);
+            }
+        
+
+                      
                     //check if both are negatve. if so add. otherwise, subtract.
                       
-                   }
+        
 
                   /** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                    *  Method to multiply the value of a GinormousIntk passed as argument to this GinormousInt
@@ -247,15 +552,32 @@
                    }
 
                   /** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                   *  Method to compare a GinormousInt passed as argument to this GinormousInt
-                   *  @param  gint  GinormousInt to add to this
-                   *  @return int   that is one of neg/0/pos if this GinormousInt precedes/equals/follows the argument
-                   *  NOTE: this method performs a lexicographical comparison using the java String "compareTo()" method
-                   *        THAT was easy.....
+                   *  Method to compare a BrobInt passed as argument to this BrobInt
+                   *  @param  gint  BrobInt to add to this
+                   *  @return int   that is one of neg/0/pos if this BrobInt precedes/equals/follows the argument
+                   *  NOTE: this method does not do a lexicographical comparison using the java String "compareTo()" method
+                   *        It takes into account the length of the two numbers, and if that isn't enough it does a
+                   *        character by character comparison to determine
                    *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
                    public int compareTo( BrobInt gint ) {
-                      return (internalValue.compareTo( gint.toString() ));
+                      if( internalValue.length() > gint.internalValue.length() ) {
+                         return 1;
+                      } else if( internalValue.length() < gint.internalValue.length() ) {
+                         return (-1);
+                      } else {
+                         for( int i = 0; i < internalValue.length(); i++ ) {
+                            Character a = new Character( internalValue.charAt(i) );
+                            Character b = new Character( gint.internalValue.charAt(i) );
+                            if( new Character(a).compareTo( new Character(b) ) > 0 ) {
+                               return 1;
+                            } else if( new Character(a).compareTo( new Character(b) ) < 0 ) {
+                               return (-1);
+                            }
+                         }
+                      }
+                      return 0;
                    }
+
 
                   /** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                    *  Method to check if a GinormousInt passed as argument is equal to this GinormousInt
@@ -290,21 +612,39 @@
                    *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
                    public String toString() {
                       String byteVersionOutput = "";
-                      for( int i = 0; i < byteVersion.length; i++ ) {
-                         byteVersionOutput = byteVersionOutput.concat( Byte.toString( byteVersion[i] ) );
-                      }
-                      byteVersionOutput = new String( new StringBuffer( byteVersionOutput ).reverse() );
+
+                      // if(sign == 1){
+
+                      // return "-" + internalValue;
+
+                      // }
+
+                    
+                      
                       return internalValue;
                    }
 
                   /** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                    *  Method to display an Array representation of this GinormousInt as its bytes
                    *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-                   public void toArray( byte[] d ) {
+                   public void toArray( int[] d ) {
                       System.out.println( Arrays.toString( d ) );
                    }
 
-                   public void removeZeros(String value){
+                   public String removeZeros(String value){
+                    String newValue = "";
+                   // System.out.println("value is: " + value);
+                        for(int x = 0; x <= value.length()-1; x++){
+                            if(value.charAt(x) != '0'){
+                                //System.out.println("x is: " + x);
+                                newValue = value.substring(x , value.length());
+                                //System.out.println("newvalue is: " + newValue);
+                                return newValue;
+                                
+                            }
+                        }
+
+                        return newValue;
 
                    }
 
