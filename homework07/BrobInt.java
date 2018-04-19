@@ -162,7 +162,7 @@
                                           
                                           if(y < smallerNumber){
                                                 smallerIntArrayWithZeros[y] = intArray[y];
-                                                //System.out.println("intArray is: " + intArray[y]);
+                                                
 
                                           }
                                           else{
@@ -174,10 +174,7 @@
                                       int [] sum = new int[largerNumber + 1];
                                       int x = 0;
                                       for( x = 0; x < largerNumber; x++){
-                                            //System.out.println("intArray at " + x + " :" + smallerIntArrayWithZeros[x]);
-                                            //System.out.println("gint.intArray at " + x + " :" + gint.intArray[x]);
                                            
-                                     
                                             sum[x] = smallerIntArrayWithZeros[x] + gint.intArray[x] + carry;
 
                                             if(sum[x] > 9){
@@ -187,23 +184,15 @@
                                             else{
                                                 carry = 0;
                                             }
-
-                                            
-
                                 
                                       }
 
                                       
                                       sum[x] = carry;
                                       
-
-                                    
-
                                       for(int i = largerNumber; i >= 0 ; i--){
                                         result += sum[i]; 
                                       }
-
-                                      //System.out.println("Result is: " + result);
                                       
                                       result = removeZeros(result);
 
@@ -249,7 +238,7 @@
                                       }
 
                                       
-                                       sum[largerNumber] = carry;
+                                      sum[largerNumber] = carry;
                                     
 
 
