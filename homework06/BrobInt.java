@@ -173,8 +173,7 @@
                                                 smallerIntArrayWithZeros[y] = 0;
                                           }
 
-                                          //System.out.println("intArray at " + y + " is: " + intArray[y]);
-                                      
+                                         
                                       }
 
                                       int [] sum = new int[largerNumber + 1];
@@ -231,7 +230,7 @@
                                                 smallerIntArrayWithZeros[y] = 0;
                                           }
 
-                                           //System.out.println("gint.intArray at " + y + " is: " + gint.intArray[y]);
+                                          
                                       
                                       }
 
@@ -645,12 +644,12 @@
 
                    public String removeZeros(String value){
                     String newValue = "";
-                   // System.out.println("value is: " + value);
+                   
                         for(int x = 0; x <= value.length()-1; x++){
                             if(value.charAt(x) != '0'){
-                                //System.out.println("x is: " + x);
+                                
                                 newValue = value.substring(x , value.length());
-                                //System.out.println("newvalue is: " + newValue);
+                                
                                 return newValue;
                                 
                             }
