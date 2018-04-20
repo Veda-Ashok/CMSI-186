@@ -64,16 +64,17 @@
                          int len = internalValue.length() - 1;
 
                          if(internalValue.charAt(0) == '-'){
+                            
                                 sign = 1;
                                 len -= 1; //which side is this chopping off?
+                                
                             
-                                //System.out.println("Internal Value is: " + internalValue);
+                               
                          }
 
                          for(int i = 0; i <= len; i++){
                                  intArray[i] = this.reversed.charAt(i) - 48;
-                                 //System.out.println("intArray at " + i + " is: " + intArray[i]);
-                            
+                                 
                                 
                          }
 
@@ -143,29 +144,50 @@
                         int largerNumber = 0;
                         int smallerNumber = 0;
                         String result = "";
+
+                        //  if(gint.sign == 1 && this.sign == 0 ){
+                        //         gint.sign = 0;
+                        //         System.out.println("Sign is: " + gint.sign);
+                        //         this.subtract(gint);
+
+                        // }
+                        // else if(gint.sign == 0 && this.sign == 1){
+                        //         this.sign = 0;
+                        //         this.add(gint);
+
+                        // }
+
+                       // else{
                      
-                        if(gint.sign != this.sign ){
-                          //this.subtract(gint);
-                        }
-                        else{
+                        
+                        
 
                               if(internalValue.length() <= gint.internalValue.length()){
                                       largerNumber = gint.internalValue.length();
                                       smallerNumber = internalValue.length();
+
                                       
+                                       
 
                                       int [] smallerIntArrayWithZeros = new int[largerNumber];
+
                                         
                                       for(int y = 0; y <= largerNumber - 1; y++){ //for every index after the smallerNumber until its length is the same as LargerNumber, store a 0
+                                         
                                           
                                           if(y < smallerNumber){
                                                 smallerIntArrayWithZeros[y] = intArray[y];
                                                 
+                                          
+                                                
 
                                           }
                                           else{
+                                             
                                                 smallerIntArrayWithZeros[y] = 0;
                                           }
+
+                                          //System.out.println("intArray at " + y + " is: " + intArray[y]);
                                       
                                       }
 
@@ -206,16 +228,24 @@
                                       largerNumber = internalValue.length();
                                       smallerNumber = gint.internalValue.length();
 
+
+
+
                                        int [] smallerIntArrayWithZeros = new int[largerNumber];
                                         
-                                      for(int y = 0; y < largerNumber - 1; y++){ //for every index after the smallerNumber until its length is the same as LargerNumber, store a 0
+                                      for(int y = 0; y <= largerNumber - 1; y++){ //for every index after the smallerNumber until its length is the same as LargerNumber, store a 0
+                                        
                                           
                                           if(y < smallerNumber){
                                                 smallerIntArrayWithZeros[y] = gint.intArray[y];
+                                                 
+                                       
                                           }
                                           else{
                                                 smallerIntArrayWithZeros[y] = 0;
                                           }
+
+                                           //System.out.println("gint.intArray at " + y + " is: " + gint.intArray[y]);
                                       
                                       }
 
@@ -256,7 +286,7 @@
                           
                         }
 
-                    }  
+                  //}
 
   
                     
@@ -276,13 +306,13 @@
                         int largerNumber = 0;
                         int smallerNumber = 0;
                         String result = "";
-                     
-                        if(gint.sign != this.sign){
-                         // this.add(gint);
 
+                        if(this.sign != gint.sign){
+                            this.add(gint);
+                           
                         }
-
-                        else{
+                     
+                        
 
                               if(internalValue.length() == gint.internalValue.length()){
                                  if(internalValue.charAt(0) > gint.internalValue.charAt(0)){
@@ -511,7 +541,7 @@
                           
                         }
 
-                    }  
+                    
 
   
                     
@@ -532,6 +562,7 @@
                    public BrobInt multiply( BrobInt gint ) {
                       throw new UnsupportedOperationException( "\n         Sorry, that operation is not yet implemented." );
                    }
+
 
                   /** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                    *  Method to divide the value of this GinormousIntk by the GinormousInt passed as argument
@@ -613,11 +644,6 @@
                    public String toString() {
                       String byteVersionOutput = "";
 
-                      // if(sign == 1){
-
-                      // return "-" + internalValue;
-
-                      // }
 
                     
                       
