@@ -144,20 +144,6 @@
                         int largerNumber = 0;
                         int smallerNumber = 0;
                         String result = "";
-
-                        //  if(gint.sign == 1 && this.sign == 0 ){
-                        //         gint.sign = 0;
-                        //         System.out.println("Sign is: " + gint.sign);
-                        //         this.subtract(gint);
-
-                        // }
-                        // else if(gint.sign == 0 && this.sign == 1){
-                        //         this.sign = 0;
-                        //         this.add(gint);
-
-                        // }
-
-                       // else{
                      
                         
                         
@@ -286,7 +272,7 @@
                           
                         }
 
-                  //}
+                
 
   
                     
