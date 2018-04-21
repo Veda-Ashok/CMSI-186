@@ -43,7 +43,7 @@
            // public static final BrobInt MIN_LONG = new BrobInt( new Long( Long.MIN_VALUE ).toString() );
 
           /// These are the internal fields
-                   private String internalValue = "";        // internal String representation of this BrobInt
+                   public String internalValue = "";        // internal String representation of this BrobInt
 
                    private int  sign         = 0;         // "0" is positive, "1" is negative
                    private String reversed      = "";        // the backwards version of the internal String representation
@@ -58,11 +58,16 @@
                    public BrobInt( String value ) {
 
                          
+                         
                          internalValue = value;
                          reverser();
                          intArray = new int[internalValue.length()];
                          int len = internalValue.length() - 1;
 
+                         if(validateDigits()){
+                       
+
+                         
                          if(internalValue.charAt(0) == '-'){
                             
                                 sign = 1;
@@ -71,12 +76,15 @@
                             
                                
                          }
+                         
+
 
                          for(int i = 0; i <= len; i++){
                                  intArray[i] = this.reversed.charAt(i) - 48;
                                  
                                 
                          }
+                     }
 
                     }
 
@@ -90,7 +98,7 @@
                    public boolean validateDigits() {
                           String isValid = "+-0123456789";
                       
-
+                            
                            if(internalValue.length() == 0){
                                   throw new IllegalArgumentException("Please enter an argument.");
 
@@ -198,8 +206,10 @@
                                       for(int i = largerNumber; i >= 0 ; i--){
                                         result += sum[i]; 
                                       }
-                                      
+
+                                       
                                       result = removeZeros(result);
+                                       
 
                                       if(sign == 1){
                                           result = "-" + result;
@@ -258,8 +268,9 @@
                                       for(int i = largerNumber - 1; i >= 0; i--){
                                             result += sum[i]; 
                                       }
-                                      
+                                     
                                       result = removeZeros(result);
+                                      
 
                                       if(sign == 1){
                                             result = "-" + result;
@@ -271,8 +282,8 @@
                           
                         }
 
+                          
                 
-
   
                     
                         return new BrobInt(result);
@@ -292,17 +303,54 @@
                         int smallerNumber = 0;
                         String result = "";
 
-                        if(this.sign != gint.sign){
-                            this.add(gint);
-                           
-                        }
-                     
                         
 
+                       
+
+                        if(this.sign != gint.sign){
+
+                         if(this.sign == 0 && gint.sign == 1){
+                              
+                               BrobInt newGint = getPositive(gint);
+                              
+                            
+                               return this.add(newGint);
+                               
+                            }
+                            else if(this.sign == 1 && gint.sign == 0){
+                             
+                               BrobInt newThis = getPositive(this);
+                              
+
+                              return this.add(gint);
+
+                            }
+                        }
+
+                        else{
+
+
+                      
+
+
+
                               if(internalValue.length() == gint.internalValue.length()){
-                                 if(internalValue.charAt(0) > gint.internalValue.charAt(0)){
+                                if(this.internalValue.equals(gint.internalValue)){
+                                   
+                                    for(int i = 0; i < this.internalValue.length(); i++){
+                                        result += "0";
+                                    }
+
+
+                                }
+
+                                else if(((internalValue.charAt(0) == '-' && gint.internalValue.charAt(0) == '-' && 
+                                   (internalValue.charAt(1) > gint.internalValue.charAt(1))) || internalValue.charAt(0) > gint.internalValue.charAt(0))){
+                                
                                     largerNumber = internalValue.length();
                                     smallerNumber = gint.internalValue.length();
+
+                                   
 
                                     int [] difference = new int[largerNumber+1];
                                       int x = 0;
@@ -324,6 +372,7 @@
                                                
                                             }
                                             else{
+
                                                 borrow = 0;
                                             }
        
@@ -336,24 +385,36 @@
                                         result += difference[i]; 
                                       }
                                       
+                                      
                                       result = removeZeros(result);
+                                     
+                                      
 
-                                      if(sign == 1){
+
+                                      if(gint.sign == 1 || this.sign == 1){
                                           result = "-" + result;
                                       }
 
 
+                                      
+
+
                                 }
 
-                                  else if(internalValue.charAt(0) < gint.internalValue.charAt(0)){
+
+
+                                  else if(((internalValue.charAt(0) == '-' && gint.internalValue.charAt(0) == '-' && 
+                                   (internalValue.charAt(1) < gint.internalValue.charAt(1))) || internalValue.charAt(0) < gint.internalValue.charAt(0))){
                                     largerNumber = gint.internalValue.length();
                                     smallerNumber = internalValue.length();
+                                    
+
 
                                     int [] difference = new int[largerNumber + 1];
                                       int x = 0;
                                       for( x = 0; x < largerNumber; x++){
                                            
-                                            difference[x] = intArray[x] - gint.intArray[x] - borrow;
+                                            difference[x] = gint.intArray[x] - intArray[x] - borrow;
                                         
 
                                             if(difference[x] < 0){
@@ -385,10 +446,8 @@
                                       }
                                       
                                       result = removeZeros(result);
+                                      
 
-                                      if(sign == 1){
-                                          result = "-" + result;
-                                      }
 
 
 
@@ -459,9 +518,15 @@
                                       }
                                       
                                       result = removeZeros(result);
+                                    
+
 
                                       
-                                      result = "-" + result;
+                                     
+                                   
+                                          result = "-" + result;
+                                      
+
 
                                       
 
@@ -516,8 +581,9 @@
                                       for(int i = largerNumber - 1; i >= 0; i--){
                                             result += difference[i]; 
                                       }
-                                      
+                                     
                                       result = removeZeros(result);
+                                     
 
                                       if(sign == 1){
                                             result = "-" + result;
@@ -525,6 +591,7 @@
                        
                           
                         }
+                    }
 
                     
 
@@ -535,7 +602,7 @@
         
 
                       
-                    //check if both are negatve. if so add. otherwise, subtract.
+                    
                       
         
 
@@ -628,27 +695,56 @@
                    *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
                    public String toString() {
                       String byteVersionOutput = "";
-
-
-                    
-                      
+           
                       return internalValue;
+                   }
+
+
+                  /** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                   *  Method to get the positive value of a negative GinormousInt
+                   *  @param gint   GinormousInt that is negative
+                   *  @return BrobInt which is the positive version of the negative value
+                   *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */ 
+                   public BrobInt getPositive(BrobInt gint){
+                    int gintLength = gint.internalValue.length();
+
+                    String gintValue = gint.internalValue.substring(1, gintLength);
+                
+
+                    BrobInt temp = new BrobInt(gintValue);
+                    temp.sign = 0;
+                    return temp;
+                    
+              
+
+
                    }
 
                   /** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                    *  Method to display an Array representation of this GinormousInt as its bytes
+                   * @param int[] which is the array to be represented
                    *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
                    public void toArray( int[] d ) {
                       System.out.println( Arrays.toString( d ) );
                    }
 
+
+                   /** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                   *  Method to remove zeros at the front of the result string
+                   *  @param value which is the string representation of result before zeros are removed
+                   *  @return String  with is the new representation of the result string with no zeros in the front
+                   *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */   
                    public String removeZeros(String value){
                     String newValue = "";
-                   
+                    int newLen = 0;
+                    
                         for(int x = 0; x <= value.length()-1; x++){
                             if(value.charAt(x) != '0'){
-                                
+                               
                                 newValue = value.substring(x , value.length());
+                                newLen = newValue.length();
+
+                                newLen -= 1;
                                 
                                 return newValue;
                                 
