@@ -275,17 +275,10 @@
                                       if(sign == 1){
                                             result = "-" + result;
                                       }
-
-
-
                        
                           
                         }
-
-                          
-                
-  
-                    
+         
                         return new BrobInt(result);
                     
 
@@ -303,35 +296,29 @@
                         int smallerNumber = 0;
                         String result = "";
 
-                        
-
-                       
-
+        
                         if(this.sign != gint.sign){
 
-                         if(this.sign == 0 && gint.sign == 1){
+                            if(this.sign == 0 && gint.sign == 1){
                               
-                               BrobInt newGint = getPositive(gint);
+                                BrobInt newGint = getPositive(gint);
                               
                             
-                               return this.add(newGint);
+                                    return this.add(newGint);
                                
                             }
+
                             else if(this.sign == 1 && gint.sign == 0){
                              
                                BrobInt newThis = getPositive(this);
                               
 
-                              return this.add(gint);
+                                    return this.add(gint);
 
                             }
                         }
 
                         else{
-
-
-                      
-
 
 
                               if(internalValue.length() == gint.internalValue.length()){
@@ -510,27 +497,16 @@
                                 
                                       }
 
-                                     
-
-            
-                                      for(int i = largerNumber; i >= 0 ; i--){
+                                    for(int i = largerNumber; i >= 0 ; i--){
                                         result += difference[i]; 
                                       }
                                       
                                       result = removeZeros(result);
-                                    
-
-
-                                      
-                                     
+                                
                                    
-                                          result = "-" + result;
+                                      result = "-" + result;
                                       
-
-
-                                      
-
-                              }
+                             }
 
                               else if(internalValue.length() > gint.internalValue.length()){
                                       largerNumber = internalValue.length();
@@ -590,22 +566,13 @@
                                       }
                        
                           
+                           }
                         }
-                    }
-
-                    
-
-  
+                        
                     
                         return new BrobInt(result);
-            }
-        
-
-                      
-                    
-                      
-        
-
+                  }
+                                                                
                   /** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                    *  Method to multiply the value of a GinormousIntk passed as argument to this GinormousInt
                    *  @param  gint         GinormousInt to multiply by this
@@ -614,7 +581,6 @@
                    public BrobInt multiply( BrobInt gint ) {
                       throw new UnsupportedOperationException( "\n         Sorry, that operation is not yet implemented." );
                    }
-
 
                   /** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                    *  Method to divide the value of this GinormousIntk by the GinormousInt passed as argument
@@ -661,7 +627,6 @@
                       return 0;
                    }
 
-
                   /** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                    *  Method to check if a GinormousInt passed as argument is equal to this GinormousInt
                    *  @param  gint     GinormousInt to compare to this
@@ -699,7 +664,6 @@
                       return internalValue;
                    }
 
-
                   /** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                    *  Method to get the positive value of a negative GinormousInt
                    *  @param gint   GinormousInt that is negative
@@ -710,14 +674,11 @@
 
                     String gintValue = gint.internalValue.substring(1, gintLength);
                 
-
                     BrobInt temp = new BrobInt(gintValue);
                     temp.sign = 0;
                     return temp;
                     
               
-
-
                    }
 
                   /** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -727,7 +688,6 @@
                    public void toArray( int[] d ) {
                       System.out.println( Arrays.toString( d ) );
                    }
-
 
                    /** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                    *  Method to remove zeros at the front of the result string
