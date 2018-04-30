@@ -62,20 +62,20 @@
         * @return the Tuple at the last row and last column
         */  
         public static Tuple makeChangeWithDynamicProgramming(int [] denominations, int target){
-             targetAmount = target;
-             System.out.println("TargetAmount is: " + targetAmount);
-             denom = denominations;
-             rows = denominations.length;
-             cols = targetAmount + 1;
-             theTable = new Tuple[rows][cols];
-             
-           
-            if (targetAmount < 0){
+
+            if(target < 0){
 
               System.out.println("BAD INPUT: Target amount cannot be negative.");
               return Tuple.IMPOSSIBLE;
 
             }
+
+            targetAmount = target;
+            denom = denominations;
+            rows = denominations.length;
+            cols = targetAmount + 1;
+            theTable = new Tuple[rows][cols];
+                 
 
             for(int i = 0; i < denom.length; i++){
                 if(denom[i] < 0){
@@ -139,6 +139,5 @@
             
              return solution();
         }
-
 
     }
