@@ -8,8 +8,6 @@
  *               programming algorithm
  * Notes      :  None
  * Warnings   :  None
- *
- *
  *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
     
 
@@ -41,42 +39,61 @@
         public static Tuple solution(){
             return theTable[denom.length - 1][targetAmount];
         }
-          
+
+
+        /**
+        * Method to determine if the Tuple in the box is Impossible
+        *
+        * @param t the Tuple that is being checked for possibility
+        *
+        * @return the Tuple at the last row and last column
+        */  
         public static boolean isImpossible( Tuple t ){
 
             return t.equals(Tuple.IMPOSSIBLE);
 
         }
 
-        public static void validateArguments(){
-
-        }
-
+        /**
+        * Method to determine the optimal way of making a total amount of change using the dynamic programming algorithm
+        *
+        * @param denominations  the integer array containing the denominations 
+        *
+        * @return the Tuple at the last row and last column
+        */  
         public static Tuple makeChangeWithDynamicProgramming(int [] denominations, int target){
              targetAmount = target;
+             System.out.println("TargetAmount is: " + targetAmount);
              denom = denominations;
              rows = denominations.length;
              cols = targetAmount + 1;
              theTable = new Tuple[rows][cols];
              
-             
-
+           
             if (targetAmount < 0){
-              throw new IllegalArgumentException("BAD INPUT: Target amount cannot be negative.");
+
+              System.out.println("BAD INPUT: Target amount cannot be negative.");
+              return Tuple.IMPOSSIBLE;
 
             }
+
             for(int i = 0; i < denom.length; i++){
                 if(denom[i] < 0){
-                    throw new IllegalArgumentException("BAD INPUT: Inputs cannot be negative.");
-
+                    System.out.println("BAD INPUT: Inputs cannot be negative.");
+                    return Tuple.IMPOSSIBLE;
+                   
                 }
                 if(denom[i] < 1){
-                    throw new IllegalArgumentException("BAD INPUT: Inputs cannot be less than 1.");
+                    System.out.println("BAD INPUT: Inputs cannot be less than 1.");
+                    return Tuple.IMPOSSIBLE;
+                   
 
                 }
                 for(int x = i + 1; x < denom.length; x++){
                     if(denom[x] == denom[i]){
-                        throw new IllegalArgumentException("BAD INPUT: Inputs cannot be repeated");
+                        System.out.println("BAD INPUT: Inputs cannot be repeated");
+                        return Tuple.IMPOSSIBLE;
+                        
                     }
                 }
             
@@ -119,13 +136,9 @@
                     }
                 }
             }
+            
              return solution();
         }
-
-
-
-
-
 
 
     }
